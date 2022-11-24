@@ -6,12 +6,14 @@ export const GET_CREATED_GAMES = 'GET_CREATED_GAMES';
 export const GET_PRE_GAMES = 'GET_PRE_GAMES';
 export const GET_GAME_DETAIL = 'GET_GAME_DETAIL';
 export const SEARCH_GAMES = 'SEARCH_GAMES'
-export const GET_INITIAL_GENRES = 'GET_INITIAL_GENRES'
 export const GET_ALL_GENRES = 'GET_ALL_GENRES';
 export const GET_CREATED_GENRES = 'GET_CREATED_GENRES';
 export const GET_PRE_GENRES = 'GET_PRE_GENRES'
 export const CREATE_GAME = 'CREATE_GAME';
+export const DELETE_GAME = 'DELETE_GAME';
+export const EDIT_GAME = 'EDIT_GAME';
 export const CREATE_GENRE = 'CREATE_GENRE';
+export const FILTER_GAMES = 'FILTER_GAMES';
 
 export function getAllGames(){
     return async (dispatch) => {
@@ -27,6 +29,12 @@ export function getAllGames(){
 export function orderGames(parameters){
     return(dispatch) => {
         dispatch({type: ORDER_GAMES, payload: parameters})
+    }
+}
+
+export function filterGames(filter){
+    return(dispatch) => {
+        dispatch({type: FILTER_GAMES, payload: filter})
     }
 }
 
@@ -46,14 +54,14 @@ export function getPreGames(){
 
 export function getGameDetail(gameId){
     return (dispatch) => {
-        let promises = []
-        promises.push(axios.get(`http://localhost:3001/api/videogames/${gameId}`))
-        promises.push(axios.get(`http://localhost:3001/db/videogames/${gameId}`))
-        Promise.all(promises).then(function(res){
-            for (let i in res){
-                if (typeof res[i].data === 'object') dispatch({type: GET_GAME_DETAIL, payload: res[i].data})
-            }
-        })
+        if (gameId.length == 36){
+            axios.get(`http://localhost:3001/db/videogames/${gameId}`)
+            .then(res => dispatch({type: GET_GAME_DETAIL, payload: res.data}))
+        }
+        else{
+            axios.get(`http://localhost:3001/api/videogames/${gameId}`)
+            .then(res => dispatch({type:GET_GAME_DETAIL, payload: res.data}))
+        }
     }   
 }
 
@@ -61,7 +69,20 @@ export function createGame(newGame){
     return (dispatch) => {
         axios.post(`http://localhost:3001/db/videogames`, newGame)
         .then(res => dispatch({type: CREATE_GAME, payload: res.data}))
-        // .catch(err => console.log(err.message))
+    }
+}
+
+export function deleteGames(id){
+    return (dispatch) => {
+        axios.delete(`http://localhost:3001/db/videogames/${id}`)
+        .then(res => dispatch({type: DELETE_GAME, payload: res.data}))
+    }
+}
+
+export function editGames(id, toChange, newValue){
+    return (dispatch) => {
+        axios.put(`http://localhost:3001/db/videogames/${id}`, {toChange, newValue})
+        .then(res => dispatch({type: EDIT_GAME, payload: res.data}))
     }
 }
 
@@ -78,16 +99,9 @@ export function searchGames(game){
 }
 
 
-export function getInitialGenres(){
+export function getAllGenres(){
     return(dispatch) => {
         axios.get("http://localhost:3001/db/genres/initial")
-        .then(res => dispatch({type: GET_INITIAL_GENRES, payload: res.data}))
-    }
-}
-
-export function getAllGenres(){
-    return (dispatch) => {
-        axios.get("http://localhost:3001/db/genres")
         .then(res => dispatch({type: GET_ALL_GENRES, payload: res.data}))
     }
 }

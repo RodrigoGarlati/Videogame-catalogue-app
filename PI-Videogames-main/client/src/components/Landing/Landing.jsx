@@ -1,26 +1,18 @@
-import React, { useEffect } from "react";
-import {  useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Link } from "react-router-dom";
-import { getAllGames, getInitialGenres } from "../../redux/actions";
 import './landing.css'
 
 
 const Landing = () => {
-    // const dispatch = useDispatch()
-
-    // const pregames = useSelector(state => state.preGames)
-
-    // useEffect(()=>{
-    //     dispatch(getInitialGenres())
-    //     dispatch(getAllGames())
-    // },[])
     return(
-        <div className="container">
-            <h1 className="title">Bienvenido a videogames ultracool</h1>
-            <div className="holi">
-                <Link to="/home">
-                    <button>ENTRAR</button>           
-                </Link>
+        <div className="landing">
+            <div className="textCont">
+                <h1 className="title">Welcome to the Videogame catalog app</h1>
+                <div className="holi">
+                    <Link to="/home">
+                        <button className="button">ENTER</button>           
+                    </Link>
+                </div>
             </div>
         </div>
     )

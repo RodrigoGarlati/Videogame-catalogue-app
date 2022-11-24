@@ -1,4 +1,57 @@
-body{
-    background-color: rgb(61, 61, 61);
+.landing{
+    display: flex;
+    background-color: rgb(15, 15, 15);
+    background-image: url(https://cdn.shopify.com/s/files/1/0283/2885/3590/products/pink_bd476094-3fa0-4a17-94f7-38db2814380f_1200x.png?v=1613411253);
+    background-repeat: no-repeat;
+    background-position-y: -70vh;
+    background-size: cover;
+    height: 100vh;
+    width: auto;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
 }
+
+.textCont{
+    margin-bottom: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: lighter;
+    color: rgb(255, 157, 0);
+
+}
+
+.button{
+    background-color: rgba(41, 41, 41, 0.581);
+    color: rgb(155, 107, 200);
+    text-decoration: none;
+    width: 10vw;
+    height: 8vh;
+    border-radius: 1vw;
+    border-color: rgb(155, 107, 200);
+    border-style: solid;
+    border-width: 1px;
+    font-family: 'Consolas';
+    font-size: large;
+    font-weight: bold;
+    transition: 0.1s;
+}
+
+.button:hover{
+    border-width: 3px;
+    color: rgb(221, 185, 255);
+    border-color: rgb(221, 185, 255);
+    box-shadow: 1px 1px 30px 2px rgb(155, 107, 200);
+}
+
+.link{
+    color: rgb(150, 92, 0);
+}
+
+
 

@@ -1,0 +1,129 @@
+.gamedetail{
+    background: linear-gradient( 45deg,rgb(15, 0, 29)30%, rgba(87,20,0) 100%);
+    background-size: cover;
+    height: 150vh;
+}
+
+.detailbuttons{
+    display: flex;
+    justify-content: space-around;
+}
+
+.deletebutton{
+    background-color: rgba(59, 36, 2, 0.61);
+    color: rgb(255, 58, 4);
+    font-family: 'Consolas';
+    font-weight: 900;
+    height: 5vh;
+    border-radius: 1vw;
+    border-color: rgb(255, 58, 4);
+    border-style: solid;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.deletebutton:hover{
+    box-shadow: 1px 0 10px 1px rgb(255, 58, 4);
+}
+
+.deletebutton:disabled{
+    display: none;
+}
+
+.editbutton{
+    background-color: rgba(59, 36, 2, 0.61);
+    color: rgb(255, 58, 4);
+    font-family: 'Consolas';
+    font-weight: 900;
+    height: 5vh;
+    border-radius: 1vw;
+    border-color: rgb(255, 58, 4);
+    border-style: solid;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.editbutton:hover{
+    box-shadow: 1px 0 10px 1px rgb(255, 58, 4);
+}
+
+.editbutton:disabled{
+    display: none;
+}
+
+.omgcontainer{
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(255, 58, 4);
+    box-shadow: 0 0 10px 1px rgb(255, 58, 4);
+    width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3vw;
+}
+
+.detailscont{
+    display: flex;
+    justify-content: space-around;
+}
+
+.detailname{
+    text-align: center;
+    font-family:'Segoe UI', sans-serif ;
+    font-weight: bolder;
+    color: rgb(255, 255, 255);
+    padding: 1vw;
+    border-radius: 1vw;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(255, 58, 4);
+    background-color: black;
+}
+
+.detailrating{
+    text-align: center;
+    color: rgb(226, 161, 56);
+    width: 7vw;
+    padding: 1vw;
+    border-radius: 1vw;
+    background-color: black;
+}
+
+.nameimg{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.detailimg{
+    width: 25vw;
+    height: 30vh;
+    border-radius: 1vw;
+}
+
+.detaildescription{
+    width: 40vw;
+    background-color: rgba(51, 51, 51, 0.523);
+    border-radius: 2vw;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(255, 58, 4);
+    color: rgb(226, 161, 56);
+    padding: 1vw;
+}
+
+.status{
+    text-align: center;
+    font-family:'Segoe UI', sans-serif ;
+    font-weight: bolder;
+    color: rgb(255, 255, 255);
+    padding: 1vw;
+    width: 40vw;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 1vw;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(255, 58, 4);
+    background-color: black;
+}

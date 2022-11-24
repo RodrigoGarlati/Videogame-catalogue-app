@@ -1,0 +1,53 @@
+.searchform{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchlabel{
+    color: rgb(226, 161, 56);
+    font-family: Courier New, monospace;
+    font-weight: 450;
+    font-size: large;
+}
+
+.input-button{
+    display: flex;
+    justify-content: space-evenly;
+    width: 30vw;
+    margin: 1vh;
+}
+
+.searchinput{
+    text-align: center;
+    border: 0;
+    outline: none;
+    border-radius: 1vw;
+    background-color: rgba(59, 36, 2, 0.61);
+    color: rgb(155, 107, 200);
+    font-weight: bold;
+    color: rgb(150, 92, 0);
+}
+
+
+
+.searchbutton{
+    background-color: rgba(59, 36, 2, 0.61);
+    color: rgb(155, 107, 200);
+    font-family: Courier New, monospace;
+    font-weight: 900;
+    height: 5vh;
+    width: 6vw;
+    border-radius: 1vw;
+    border-color: rgb(155, 107, 200);
+    border-style: solid;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.searchbutton:hover{
+    color: rgb(199, 162, 234);
+    border-color: rgb(199, 162, 233);
+    box-shadow: 1px 0 20px 5px rgb(155, 107, 200);
+}

@@ -1,0 +1,57 @@
+.creategenre{
+    background: linear-gradient( 45deg,rgb(15, 0, 29)30%, rgba(87,20,0) 100%);
+    background-size: cover;
+    height: 110vh;
+}
+
+.gcreateallcont{
+    display: flex;
+    align-items: center;
+}
+
+.gcreatetitle{
+    text-align: center;
+    color: rgb(226, 161, 56);
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: lighter;
+}
+
+.creategenreform{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.395);
+    border-radius: 2vw;
+    width: 60vw;
+    height: 60vh;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1vw;
+}
+
+.statusdiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gstatus{
+    text-align: center;
+    font-family:'Segoe UI', sans-serif ;
+    font-weight: bolder;
+    color: rgb(255, 255, 255);
+    padding: 1vw;
+    width: 30vw;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 1vw;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(255, 58, 4);
+    background-color: black;
+}
+
+.errors{
+    color: red;
+}

@@ -1,0 +1,41 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(to right, rgb(4, 0, 6),  rgb(87, 20, 0) 100%);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color:  rgb(175, 89, 255);
+    box-shadow: 0px 1px 10px 1px rgb(175, 89, 255);
+}
+
+.navlist{
+    display: flex;
+    width: 100vw;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+}
+
+.imglogo{
+    height: 12vh;
+    width: 7vw;
+}
+
+.navitem{
+    color: rgb(155, 107, 200);
+    border-right-style: solid;
+    border-right-color: rgb(161, 113, 205);
+    border-right-width: 1px;
+    padding: 10px;
+    font-family: 'Consolas';
+    transition: 200ms;
+}
+.navitem:hover{
+    color: rgb(218, 179, 255);
+    border-right-color: rgb(218, 179, 255);
+    filter: drop-shadow(0px 0 5px);
+}
+
+.navLink{
+    text-decoration: none;
+}

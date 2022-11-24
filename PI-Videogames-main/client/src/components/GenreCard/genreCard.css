@@ -1,3 +1,44 @@
-.genreImage{
-    width: 20%;
+.genrecard{
+    padding: 2vw;
+    margin: 1vw;
+    width: 25vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2vw;
+    box-shadow: 0 0 10px 1px rgb(4, 255, 255);
+}
+
+.gcardimg{
+    width: 20vw;
+    height: 23vh;
+    border-radius: 1vw;
+}
+
+.gcardtitle{
+    margin-top: -1vw;
+    text-align: center;
+    font-family:'Segoe UI', sans-serif ;
+    font-weight: bolder;
+    background-color: rgba(0, 0, 0, 0.871);
+    border-radius: 2vw;
+    color: rgb(255, 255, 255);
+    padding: 2vh;
+}
+
+.exgamesdiv{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 15vh;
+    color: rgb(226, 161, 56);
+    background-color: rgba(0, 0, 0, 0.414);
+    border-radius: 2vw;
+    border-style: solid;
+    border-color: rgba(0, 63, 118, 0.897);
+    border-width: 1px;
 }

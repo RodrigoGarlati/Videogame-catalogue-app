@@ -1,0 +1,17 @@
+.seegenres{
+    background: linear-gradient( to right,rgb(15, 0, 29)30%, rgba(87,20,0) 100%);
+    background-size: cover;
+}
+
+.genrestitle{
+    text-align: center;
+    color: rgb(226, 161, 56);
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: lighter;
+}
+
+.genrescont{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

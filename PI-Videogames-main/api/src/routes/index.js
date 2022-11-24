@@ -4,7 +4,6 @@ const { Router } = require('express');
 const db_videogameRouter = require('../DBmiddlewares/db-videogameRouter')
 const db_genreRouter = require('../DBmiddlewares/db-genreRouter')
 const videogameRouter = require('./videogameRouter')
-const genreRouter = require('./genreRouter')
 const axios = require('axios')
 
 

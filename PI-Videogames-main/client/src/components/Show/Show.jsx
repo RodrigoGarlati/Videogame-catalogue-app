@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllGames, getCreatedGames, getPreGames } from "../../redux/actions";
+import './show.css'
 
 export class Show extends Component{
     constructor(props){
@@ -28,11 +29,12 @@ export class Show extends Component{
 
     render(){
         return(
-            <div>
-                <select  name="show"  onChange={e => this.handleShow(e)} >
-                    <option>All</option>
-                    <option>Preexisting</option>
-                    <option>Created</option>
+            <div className="show">
+                <label className="showlabel" htmlFor="show">Show </label>
+                <select className="showselect" id="show" name="show" onChange={e => this.handleShow(e)} >
+                    <option className="showoption">All</option>
+                    <option className="showoption">Preexisting</option>
+                    <option className="showoption">Created</option>
                 </select>
             </div>
         )}

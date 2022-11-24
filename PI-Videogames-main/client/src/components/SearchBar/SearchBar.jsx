@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { searchGames, getAllGames, getPreGames, getCreatedGames, orderGames } from "../../redux/actions";
+import { searchGames } from "../../redux/actions";
+import './searchbar.css'
 
 export class SearchBar extends Component{ 
     constructor(props){
@@ -30,13 +31,13 @@ export class SearchBar extends Component{
 
     render(){
         return (
-        <div>
-            <form onSubmit={e => this.handleSubmit(e)}>
-                <label>By name: </label>
-                <input placeholder="Name.." name="name" onChange={e => this.handleChange(e)}></input>
-                <label>By genre: </label>
-                <input placeholder="Genre.." name="genre"></input>
-                <button type="submit">Buscar</button>
+        <div className="searchbar">
+            <form onSubmit={e => this.handleSubmit(e)} className='searchform'>
+                <label className="searchlabel">Search game </label>
+                <div className="input-button">
+                    <input className="searchinput" placeholder="Name.." name="name" autoComplete="off" onChange={e => this.handleChange(e)}></input>
+                    <button className="searchbutton" type="submit">Search</button>
+                </div>
             </form>
         </div>
     )}

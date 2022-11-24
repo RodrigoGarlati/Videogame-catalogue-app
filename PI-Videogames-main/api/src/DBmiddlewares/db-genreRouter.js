@@ -1,7 +1,8 @@
 const {Router} = require('express');
 const router = Router();
-const axios = require('axios')
-const {Op, Genre} = require('../db')
+const axios = require('axios');
+const {Op, Genre} = require('../db');
+const { v4: uuidv4 } = require('uuid')
 
 
 
@@ -14,7 +15,7 @@ router.get('/initial', async (req, res)=>{
                 genres = genres.data.results
                 let promises = genres.map(function(genre){
                     let obj = {}
-                    obj.id = genre.id
+                    obj.id = uuidv4()
                     obj.name = genre.name
                     obj.image = genre.image_background
                     obj.games = genre.games.slice(0,3).map(e => e.name).toString()  //saco los primeros tres, mapeo para sacar la propiedad name y lo paso a string porque es un array
@@ -34,24 +35,15 @@ router.get('/initial', async (req, res)=>{
         }
     }
     catch(err){
+        console.log(err.message)
         res.json({error: err.message})
-    }
-})
-
-router.get('/', async (req, res)=>{
-    try{
-        let genres = await Genre.findAll()
-        res.json(genres)
-    }
-    catch(err){
-        res.status(400).json({error: err.message})
     }
 })
 
 router.post('/', async (req, res)=> {
     const {id, name} = req.body
 
-    if (!id || !name) res.status(404).send('Faltan datos obligatorios.')
+    if (!id || !name) res.status(404).send('Necessary data is missing')
     else{
         try{
             let genre = await Genre.create(req.body)

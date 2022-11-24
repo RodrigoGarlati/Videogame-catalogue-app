@@ -1,11 +1,50 @@
 .gamecard{
-    background-color: bisque;
-    margin: 2%;
-
+    width: 20vw;
+    height: 50vh;
+    background-image: url(https://media.istockphoto.com/id/1248994605/vector/glowing-neon-line-gamepad-icon-isolated-on-black-background-game-controller-vector.jpg?s=612x612&w=0&k=20&c=eSjCnn9h-XdJj6s5K12X2d93MolBIZWHBmfYmylKxZI=);
+    background-position-y: -13vh;
+    background-position-x: center;
+    background-size:contain;
+    margin: 3vw;
+    padding: 1vw;
+    border-style: solid;
+    border-color: rgb(4, 255, 255);
+    border-width: 1px;
+    border-radius: 2vw;
+    overflow: hidden;
+    transition: 200ms;
 }
 
-.gameImage{
-    width: 300px;
-    height: 150px;
+.gamecard:hover{
+    box-shadow: 0 0 10px 2px rgb(4, 255, 255);
+}
+
+
+.gametitle{
+    text-align: center;
+    font-family:'Segoe UI', sans-serif ;
+    font-weight: bolder;
+    background-color: rgba(0, 0, 0, 0.871);
+    border-radius: 2vw;
+    color: rgb(255, 255, 255);
+}
+
+.genrediv{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    color: rgb(226, 161, 56);
+    background-color: rgba(0, 0, 0, 0.881);
+    border-radius: 2vw;
+    border-style: solid;
+    border-color: rgba(0, 63, 118, 0.897);
+    border-width: 1px;
+}
+
+.gameimage{
+    width: 20vw;
+    height: 25vh;
+    border-radius: 1vw;
 
 }

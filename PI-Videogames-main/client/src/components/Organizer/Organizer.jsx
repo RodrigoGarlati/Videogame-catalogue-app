@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { orderGames } from "../../redux/actions";
+import './organizer.css'
 
 export class Organizer extends Component{
     constructor(props){
@@ -14,9 +15,8 @@ export class Organizer extends Component{
     componentDidUpdate(){
         let {order, orderBy} = this.state
         let params = {order, orderBy}
-        if(order){
-            this.props.orderGames(params)
-        }
+        this.props.orderGames(params)
+        
     }
 
     handleSelect(e){
@@ -33,15 +33,15 @@ export class Organizer extends Component{
 
     render(){
         return(
-            <div>
-                <label>Order:</label>
-                <select name="order" onChange={e => this.handleSelect(e)}>
+            <div className="organizer">
+                <label className="organizerlabel">In order </label>
+                <select className="organizerselect" name="order" onChange={e => this.handleSelect(e)}>
                     <option>Any</option>
                     <option>Upward</option>
                     <option>Falling</option>
                 </select>
-                <label>By:</label>
-                <select name="orderBy" onChange={e => this.handleSelect(e)}>
+                <label className="organizerlabel">Order by </label>
+                <select className="organizerselect" name="orderBy" onChange={e => this.handleSelect(e)}>
                     <option>Alphabetical</option>
                     <option>Rating</option>
                 </select>

@@ -13,8 +13,6 @@ router.get('/', async(req, res)=>{
             let next  
             let i = 0
             while (games.length < 100){
-                console.log(games.length)
-                console.log(games)
                 !next? results = await axios.get(`${urlApi}?key=${api_key}`) : results = next
                 results = results.data
                 next = await axios.get(results.next)
@@ -67,7 +65,7 @@ router.get('/', async(req, res)=>{
             return obj
         })
         games = games.slice(0,15)
-        games.length > 0? res.send(games) : res.send('No se encontró ninguno con ese nombre')
+        games.length > 0? res.send(games) : res.send('Any game was finded whit that name')
     }
 })
 
@@ -90,21 +88,12 @@ router.get('/:id', async (req, res)=>{
             return element.platform.name
         });
         obj.platforms = platforms.toString()
+        obj.created = false
         res.json(obj)
     }
     catch(err){
         res.send(err.message)
     }
 })
-// Obtener el detalle de un videojuego en particular
-// Debe traer solo los datos pedidos en la ruta de detalle de videojuego
-// Incluir los géneros asociados
-
-// [ ] Los campos mostrados en la ruta principal para cada videojuegos (imagen, nombre, y géneros)
-// [ ] Descripción
-// [ ] Fecha de lanzamiento
-// [ ] Rating
-// [ ] Plataformas
-
 
 module.exports = router

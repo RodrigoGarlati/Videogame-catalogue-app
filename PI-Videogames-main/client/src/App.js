@@ -2,25 +2,27 @@ import './App.css';
 import React from "react";
 import { Route } from "react-router-dom";
 import Landing from './components/Landing/Landing.jsx'
-import Nav from './components/NavBar/NavBar'
 import Home from './components/Home/Home'
 import Gamedetail from './components/GameDetail/GameDetail';
 import CreateGame from './components/CreateGame/CreateGame';
 import CreateGenre from './components/CreateGenre/CreateGenre';
 import SeeGenres from './components/SeeGenres/SeeGenres';
+import EditGame from './components/EditGame/EditGame'
 
 function App() {
   return (
     <React.Fragment>
-      <Nav/>
       <Route exact path="/" component={Landing} />
-      <Route path="/home" component={Home} />
-      <Route path="/gamedetail/:id" component={Gamedetail} />
-      <Route path="/creategame" component={CreateGame} />
-      <Route path="/genres" component={SeeGenres} />
-      <Route path="/creategenre" component={CreateGenre} />
+      <Route exact path="/home" component={Home} />
+      <Route exact path="/gamedetail/:id" component={Gamedetail} />
+      <Route exact path="/gamedetail/:id/edit" component={EditGame} />
+      <Route exact path="/creategame" component={CreateGame} />
+      <Route exact path="/genres" component={SeeGenres} />
+      <Route exact path="/creategenre" component={CreateGenre} />
     </React.Fragment>
   );
 }
+
+//https://cdn.dribbble.com/users/2666418/screenshots/7824872/joystick1.gif
 
 export default App;

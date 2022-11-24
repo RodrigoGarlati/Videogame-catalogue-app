@@ -1,0 +1,104 @@
+.editgame{
+    background: linear-gradient(45deg,rgb(15, 0, 29)30%, rgba(87,20,0) 100%);
+    background-size: cover;
+    height: 100vh;
+}
+
+.edittitle{
+    text-align: center;
+    color: rgb(226, 161, 56);
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: lighter;
+}
+
+.editsubtitle{
+    color: rgb(226, 161, 56);
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: lighter;
+}
+
+.editform{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.395);
+    border-radius: 2vw;
+    width: 80vw;
+    height: 60vh;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1vw;
+}
+
+.editselectcont{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 20vw;
+    height: 55vh;
+    background-color: rgba(53, 33, 0, 0.84);
+    border-radius: 1vw;
+    padding: 1vw;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(240, 220, 1);
+    box-shadow: 0 0 10px 1px rgb(240, 220, 1);
+}
+
+.editselectcont2{
+    width: 20vw;
+    height: 55vh;
+    background-color: rgba(53, 33, 0, 0.84);
+    border-radius: 1vw;
+    padding: 1vw;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(240, 220, 1);
+    box-shadow: 0 0 10px 1px rgb(240, 220, 1);
+}
+
+.editlabel{
+    color: rgb(226, 161, 56);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: lighter;
+    background-color: rgba(0, 0, 0, 0.395);
+    border-radius: 5px;
+    padding: 1vh;
+}
+
+.editinput{
+    color: rgb(226,161,56);
+    background-color: rgba(0, 0, 0, 0.395);
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(87,20,0);
+    margin: 1.5vh;
+    padding: 4px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.toeditcont{
+    margin-left: 2.5vw;
+}
+
+.sendeditbutton{
+    height: 10vh;
+    width: 10vw;
+    background: none;
+    color: rgb(226,161,56);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    border-radius: 1vw;
+    border-width: 1px;
+    border-color: rgb(240, 220, 1);
+    transition: 300ms;
+    cursor: pointer;
+}
+
+.sendeditbutton:hover{
+    background-color: rgb(226,161,56);
+    box-shadow: 0 0 20px 1px rgb(255, 242, 101);
+    color: black;
+}

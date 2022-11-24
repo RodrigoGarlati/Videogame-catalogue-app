@@ -3,17 +3,17 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import GameCard from "../GameCard/GameCard";
-//import { getAllGames } from "../../redux/actions";
 import './home.css'
+import NavBar from '../NavBar/NavBar'
 import Show from "../Show/Show";
 import Organizer from "../Organizer/Organizer";
+import Filter from "../Filter/Filter";
 
 
 const Home = function(){
     const games = useSelector(state => state.Games)
     const searched = useSelector(state => state.searchedGames)
     const [renderGames, setRender] = useState([])
-    let toOrder = false 
 
     
     const location = useLocation()
@@ -29,7 +29,6 @@ const Home = function(){
     
     useEffect(()=>{
         setRender(games)
-        toOrder = true
      },[games])
 
     useEffect(()=>{
@@ -48,16 +47,24 @@ const Home = function(){
     }
 
     return(
-        <div className="cards">
-            <SearchBar games={toOrder}/>
-            <Show/>
-            <Organizer/>
-            <h2>VIDEOGAMES</h2>
+        <div className="home">
+            <NavBar/>
+            <br/>
+            <div className="searchCont">
+                <SearchBar />
+            </div>
+            <br/>
+            <div className="show-orgCont">
+                <Show/>
+                <Organizer/>
+                <Filter/>
+            </div>
+            <h1 className="homeTitle">VIDEOGAMES</h1>
             <div className="cardscontainer">
                 {renderGames? renderGames.slice(firstIndex, firstIndex+15).map(game => (
-                    <Link to={`/gamedetail/${game.id}`}>
+                    <Link className="gamecardlink" to={`/gamedetail/${game.id}`}>
                         <div key={game.id}>
-                            <GameCard name={game.name} genres={game.genre} image={game.image} />
+                            <GameCard id={game.id} name={game.name} genres={game.genre} image={game.image} />
                         </div>
                     </Link>
                 )) : null}
@@ -74,44 +81,3 @@ const Home = function(){
 }
 
 export default (Home)
-
-
-// ALTERNATIVA DE PAGINADO 
-
-// const [pages, setPages] = useState({
-    //     pages: [],
-    //     numPages: [],
-    //     actualPage: 0
-    // })
-
-    // useEffect(()=>{
-    // for (let i = 0; games.length ; i++){
-    //      let ja = games.splice(0,15)
-    //      setPages((state) => ({
-    //          ...state,
-    //          pages: [...state.pages, ja]
-    //      }))
-    //      setPages((state)=> ({
-    //          ...state,    
-    //          numPages: state.numPages.concat(i)
-    //      }))
-    //  }
-    // },[games])
-
-    // function handleclick(e){
-    //     setPages((prev) => ({
-    //         ...prev,
-    //         actualPage: parseInt(e.target.innerText)-1
-    //     }))
-    // }
-
-
-    //RETURN
-/* {pages.numPages? pages.numPages.map(page => (<a onClick={e => handleclick(e)}> {page+1} </a>)) : null} */
-/* {pages.pages[pages.actualPage]? pages.pages[pages.actualPage].map(game => (
-                    <Link to={`/gamedetail/${game.id}`}>
-                        <div key={game.id}>
-                            <GameCard name={game.name} genres={game.genre} image={game.image}/>
-                        </div>
-                    </Link>
-                )): null} */

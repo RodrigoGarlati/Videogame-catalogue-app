@@ -40,18 +40,56 @@ router.get('/:id', async (req, res)=>{
 })
 
 router.post('/', async (req, res)=>{
-    const {id, name, description, platforms} = req.body
+    req.body.platforms = req.body.platforms.toString()
+    req.body.genre = req.body.genre.toString()
+  
 
-    if (!id || !name || !description || !platforms) res.status(404).send(`Faltan datos obligatorios.`)
+    if (!req.body.id || !req.body.name || !req.body.description || !req.body.platforms) res.status(404).send(`Necessary data is missing`)
+    else{
+        try{
+            game = await Videogame.create(req.body)
+            res.json(game)
+        }
+        catch(err){
+            console.log(err.message)
+            res.status(400).json({error: err.message})
+        }
+    }
+})
+
+router.put('/:id', async(req,res) => {
+    const {id} = req.params
+    const {toChange, newValue} = req.body
+
+    let promises = []
+
+    for (let i = 0; i < toChange.length; i++){
+        const change = Videogame.update({[toChange[i]]: newValue[i]} ,{where: {id: id}})
+        promises.push(change)
+    }
 
     try{
-        game = await Videogame.create(req.body)
-        res.json(game)
+        await Promise.all(promises)
+        res.send('Game edited succesfuly')
     }
     catch(err){
-        console.log(err.message)
-        res.status(400).json({error: err.message})
+        res.status(400).send(err.message)
     }
+
+})
+
+router.delete('/:id', async(req, res) =>{
+    const {id} = req.params
+    try{
+        await Videogame.destroy({
+            where: {id: id}
+        })
+        res.send('The game has been deleted succesfuly')
+    }
+    catch(err){
+        res.status(400).send(err.message)
+    }
+
 })
 
 
