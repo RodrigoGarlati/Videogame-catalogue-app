@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 const axios = require('axios');
-const {Op, Genre} = require('../db');
+const {Genre} = require('../db');
 const { v4: uuidv4 } = require('uuid')
 
 

@@ -1,7 +1,7 @@
 const {Router} = require('express')
 const router = Router()
 const axios = require('axios')
-const api_key = '460d82ec2eea4d12974d38b287551b0e'
+const {API_KEY} = process.env
 const urlApi = `https://api.rawg.io/api/games`
 
 router.get('/', async(req, res)=>{
@@ -13,7 +13,7 @@ router.get('/', async(req, res)=>{
             let next  
             let i = 0
             while (games.length < 100){
-                !next? results = await axios.get(`${urlApi}?key=${api_key}`) : results = next
+                !next? results = await axios.get(`${urlApi}?key=${API_KEY}`) : results = next
                 results = results.data
                 next = await axios.get(results.next)
 
@@ -44,7 +44,7 @@ router.get('/', async(req, res)=>{
         }
     }
     else{
-        results = await axios.get(`${urlApi}?key=${api_key}&search=${gameName}`)
+        results = await axios.get(`${urlApi}?key=${API_KEY}&search=${gameName}`)
         results = results.data
         // res.send(results.results.map(e => e.name))
         let games = results.results.map(function(e){
