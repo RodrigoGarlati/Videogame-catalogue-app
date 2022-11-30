@@ -14,6 +14,7 @@ export const DELETE_GAME = 'DELETE_GAME';
 export const EDIT_GAME = 'EDIT_GAME';
 export const CREATE_GENRE = 'CREATE_GENRE';
 export const FILTER_GAMES = 'FILTER_GAMES';
+export const SWITCH_LOADER = 'SWITCH_LOADER';
 
 export function getAllGames(){
     return async (dispatch) => {
@@ -110,5 +111,11 @@ export function createGenre(newGenre){
     return (dispatch) => {
         axios.post("http://localhost:3001/db/genres", newGenre)
         .then(res => dispatch({type: CREATE_GENRE, payload: res.data}))
+    }
+}
+
+export function loader(){
+    return(dispatch) => {
+        dispatch({type: SWITCH_LOADER})
     }
 }

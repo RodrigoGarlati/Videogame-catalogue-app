@@ -37,3 +37,24 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.pagescontainer{
+    display: flex;
+    justify-content: center;
+
+}
+
+.pages{
+    color: rgb(226, 161, 56);
+    text-decoration: none;
+    margin: 1vw;
+}
+
+.pagelink{
+    text-decoration: none;
+}
+
+.omgcont{
+    display: flex;
+    justify-content: center;    
+}

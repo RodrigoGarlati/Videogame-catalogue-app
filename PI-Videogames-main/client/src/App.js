@@ -23,6 +23,4 @@ function App() {
   );
 }
 
-//https://cdn.dribbble.com/users/2666418/screenshots/7824872/joystick1.gif
-
 export default App;

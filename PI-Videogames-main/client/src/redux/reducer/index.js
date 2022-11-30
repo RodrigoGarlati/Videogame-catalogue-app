@@ -1,5 +1,5 @@
 import {GET_PRE_GAMES, GET_ALL_GAMES, GET_ALL_GENRES, GET_CREATED_GAMES, GET_GAME_DETAIL,
-      CREATE_GAME, CREATE_GENRE, SEARCH_GAMES, ORDER_GAMES, FILTER_GAMES, DELETE_GAME, EDIT_GAME} from '../actions'
+      CREATE_GAME, CREATE_GENRE, SEARCH_GAMES, ORDER_GAMES, FILTER_GAMES, DELETE_GAME, EDIT_GAME, SWITCH_LOADER, loader} from '../actions'
 
 const initialState = {
     Games: [],
@@ -14,6 +14,7 @@ const initialState = {
     editGame: '', 
     allGenres: [],
     createdGenre: {},
+    loader: true
 }
 
 export default function superReducer(state = initialState, action){
@@ -25,7 +26,8 @@ export default function superReducer(state = initialState, action){
                 createdGames: false,
                 allGames: true,
                 Games: action.payload,
-                preFilter: action.payload
+                preFilter: action.payload,
+                loader: false
             };
         case GET_PRE_GAMES:
             return{
@@ -34,7 +36,8 @@ export default function superReducer(state = initialState, action){
                 createdGames: false,
                 preGames: true,
                 Games: action.payload,
-                preFilter: action.payload
+                preFilter: action.payload,
+                loader: false
             };
         case GET_CREATED_GAMES:
             return{
@@ -43,7 +46,8 @@ export default function superReducer(state = initialState, action){
                 preGames: false,
                 createdGames: true,
                 Games: action.payload,
-                preFilter: action.payload
+                preFilter: action.payload,
+                loader: false
             };
         case GET_GAME_DETAIL:
             if (!action.payload){
@@ -144,6 +148,11 @@ export default function superReducer(state = initialState, action){
             return{
                 ...state,
                 editGame: action.payload
+            }
+        case SWITCH_LOADER:
+            return {
+                ...state,
+                loader: state.loader == true? false : true
             }
     }
 };

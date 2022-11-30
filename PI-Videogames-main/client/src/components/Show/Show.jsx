@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getAllGames, getCreatedGames, getPreGames } from "../../redux/actions";
+import { getAllGames, getCreatedGames, getPreGames, loader } from "../../redux/actions";
 import './show.css'
 
 export class Show extends Component{
@@ -16,8 +16,14 @@ export class Show extends Component{
     }
 
     componentDidUpdate(){
-        if (this.state.show == 'All') this.props.getAllGames()
-        else if (this.state.show == 'Preexisting') this.props.getPreGames()
+        if (this.state.show == 'All') {
+            this.props.loader()
+            this.props.getAllGames()
+        }
+        else if (this.state.show == 'Preexisting'){
+            this.props.loader()
+            this.props.getPreGames()
+        }
         else if (this.state.show == 'Created') this.props.getCreatedGames()
     }
 
@@ -44,7 +50,8 @@ export function mapDispatchToProps(dispatch){
     return{
         getAllGames: (()=> dispatch(getAllGames())),
         getPreGames: (()=> dispatch(getPreGames())),
-        getCreatedGames: (()=> dispatch(getCreatedGames()))
+        getCreatedGames: (()=> dispatch(getCreatedGames())),
+        loader: (() => dispatch(loader()))
     }
 }
 
