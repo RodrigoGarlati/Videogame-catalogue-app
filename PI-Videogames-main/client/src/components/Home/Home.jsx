@@ -16,7 +16,6 @@ const Home = function(){
     const searched = useSelector(state => state.searchedGames)
     const loader = useSelector(state => state.loader)
     const [renderGames, setRender] = useState([])
-    const [loading, setLoading] = useState(false)
 
     
     const location = useLocation()
@@ -65,14 +64,16 @@ const Home = function(){
             <h1 className="homeTitle">VIDEOGAMES</h1>
             <div className="omgcont">
                 {loader ? <Loader/> : 
-                <div className="cardscontainer">
-                    {renderGames.slice(firstIndex, firstIndex+15).map(game => (
-                        <Link className="gamecardlink" to={`/gamedetail/${game.id}`}>
-                            <div key={game.id}>
-                                <GameCard id={game.id} name={game.name} genres={game.genre} image={game.image} />
-                            </div>
-                        </Link>
-                    ))}
+                <div>
+                    <div className="cardscontainer">
+                        {renderGames.slice(firstIndex, firstIndex+15).map(game => (
+                            <Link className="gamecardlink" to={`/gamedetail/${game.id}`}>
+                                <div key={game.id}>
+                                    <GameCard id={game.id} name={game.name} genres={game.genre} image={game.image} />
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
                     <div className="pagescontainer">
                         {renderGames? numberOfPages(pages).map(e => (
                         <Link className="pagelink" to={`/home?page=${e-1}`}>
@@ -83,13 +84,6 @@ const Home = function(){
                 </div>
                 }
             </div>
-            {/* <div className="pagescontainer">
-                {renderGames? numberOfPages(pages).map(e => (
-                    <Link className="pagelink" to={`/home?page=${e-1}`}>
-                        <p className="pages">{e}</p>
-                    </Link>
-                )) : null}
-            </div> */}
         </div>
     )
 }

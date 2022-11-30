@@ -72,7 +72,7 @@ router.get('/', async(req, res)=>{
 router.get('/:id', async (req, res)=>{
     try{
         const {id} = req.params
-        results = await axios.get(`${urlApi}/${id}?key=${api_key}`)
+        results = await axios.get(`${urlApi}/${id}?key=${API_KEY}`)
         results = results.data
         let obj = {}
         obj.image = results.background_image
