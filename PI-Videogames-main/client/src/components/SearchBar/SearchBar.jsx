@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { searchGames } from "../../redux/actions";
+import { searchGames, loader } from "../../redux/actions";
 import './searchbar.css'
 
 export class SearchBar extends Component{ 
@@ -8,15 +8,8 @@ export class SearchBar extends Component{
         super(props)
         this.state = {
             name: '',
-            show: 'All',
-            order: '',
-            orderBy: 'Alphabetical',
         }
     }
-
-
-
-
 
     handleChange(e){
         this.setState({name: e.target.value}) 
@@ -24,6 +17,7 @@ export class SearchBar extends Component{
 
     handleSubmit(e){
         e.preventDefault();
+        this.props.loader()
         this.props.searchGames(this.state.name)
     }
 
@@ -47,6 +41,7 @@ export class SearchBar extends Component{
 export function mapDispatchToProps(dispatch){
     return {
         searchGames: (game => dispatch(searchGames(game))),
+        loader: (() => dispatch(loader()))
     }
 
 }

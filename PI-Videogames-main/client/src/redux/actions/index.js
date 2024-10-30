@@ -16,13 +16,16 @@ export const CREATE_GENRE = 'CREATE_GENRE';
 export const FILTER_GAMES = 'FILTER_GAMES';
 export const SWITCH_LOADER = 'SWITCH_LOADER';
 
-export function getAllGames(){
+export function getAllGames(page){
     return async (dispatch) => {
         let promises = []
-        promises.push(axios.get('http://localhost:3001/api/videogames'))
+        promises.push(axios.get(`http://localhost:3001/api/videogames?page=${page}`))
         promises.push(axios.get("http://localhost:3001/db/videogames"))
         Promise.all(promises).then(function(res){
-            dispatch({type: GET_ALL_GAMES , payload: res[0].data.concat(res[1].data)})
+            dispatch({type: GET_ALL_GAMES , payload: {
+                games: res[0].data.games.concat(res[1].data.games),
+                count: res[0].data.count + res[1].data.count
+            }})
         })
     }
 }

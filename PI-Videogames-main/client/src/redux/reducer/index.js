@@ -3,6 +3,7 @@ import {GET_PRE_GAMES, GET_ALL_GAMES, GET_ALL_GENRES, GET_CREATED_GAMES, GET_GAM
 
 const initialState = {
     Games: [],
+    totalGames: 0,
     preFilter: [],
     allGames: false,
     searchedGames: [],
@@ -25,8 +26,9 @@ export default function superReducer(state = initialState, action){
                 preGames: false,
                 createdGames: false,
                 allGames: true,
-                Games: action.payload,
-                preFilter: action.payload,
+                Games: action.payload.games,
+                preFilter: action.payload.games,
+                totalGames: action.payload.count,
                 loader: false
             };
         case GET_PRE_GAMES:
@@ -65,7 +67,8 @@ export default function superReducer(state = initialState, action){
         case SEARCH_GAMES:
             return{
                 ...state,
-                searchedGames: action.payload
+                searchedGames: action.payload,
+                loader: false
             };
         case CREATE_GAME:
             return{

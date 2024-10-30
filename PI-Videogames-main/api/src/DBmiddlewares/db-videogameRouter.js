@@ -7,7 +7,11 @@ router.get('/', async (req, res)=>{
     if (!name){
         try{
             let games = await Videogame.findAll()
-            res.json(games)
+            let count = games.length
+            res.json({
+                games,
+                count
+            })
         }
         catch(err){
             res.status(400).json({error: err.message})

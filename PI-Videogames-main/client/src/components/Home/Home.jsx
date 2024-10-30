@@ -13,6 +13,7 @@ import Loader from "../Loader/Loader"
 
 const Home = function(){
     const games = useSelector(state => state.Games)
+    const totalGames = useSelector(state => state.totalGames)
     const searched = useSelector(state => state.searchedGames)
     const loader = useSelector(state => state.loader)
     const [renderGames, setRender] = useState([])
@@ -21,9 +22,7 @@ const Home = function(){
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search)
     let page = searchParams.get("page")
-    if (!page) page = 0
-    const [pages, setPages] = useState(0)
-    let firstIndex = page * 15
+    if (!page) page = 1
 
     useEffect(()=>{
         setRender(searched)
@@ -33,19 +32,10 @@ const Home = function(){
         setRender(games)
      },[games])
 
-    useEffect(()=>{
-        setPages(Math.ceil(renderGames.length/15))
-    }, [renderGames])
 
-    function numberOfPages(pages){
-        var i = 1
-        var o = []
-        while (pages > 0){
-            o.push(i)
-            pages--
-            i++ 
-        }
-        return o
+    function numberOfPages(){
+        let amountOfPages = Math.ceil(totalGames / 15)
+        return Array.from({ length: amountOfPages }, (_, index) => index + 1);
     }
 
     return(
@@ -57,7 +47,9 @@ const Home = function(){
             </div>
             <br/>
             <div className="show-orgCont">
-                <Show/>
+                <Show 
+                    page={page}
+                />
                 <Organizer/>
                 <Filter/>
             </div>
@@ -66,7 +58,7 @@ const Home = function(){
                 {loader ? <Loader/> : 
                 <div>
                     <div className="cardscontainer">
-                        {renderGames.slice(firstIndex, firstIndex+15).map(game => (
+                        {renderGames.map(game => (
                             <Link className="gamecardlink" to={`/gamedetail/${game.id}`}>
                                 <div key={game.id}>
                                     <GameCard id={game.id} name={game.name} genres={game.genre} image={game.image} />
@@ -75,12 +67,17 @@ const Home = function(){
                         ))}
                     </div>
                     <div className="pagescontainer">
-                        {renderGames? numberOfPages(pages).map(e => (
-                        <Link className="pagelink" to={`/home?page=${e-1}`}>
-                            <p className="pages">{e}</p>
+                        {renderGames? numberOfPages().map(e => (
+                        <Link className="pagelink" to={`/home?page=${e}`}>
+                            <p 
+                                className={`pages ${page == e ? 'selected' : ''}`}
+                            >
+                                {e}
+                            </p>
                         </Link>
                         )) : null}
                     </div>
+                    {!games.length? <h1>No games founded</h1> : null}
                 </div>
                 }
             </div>

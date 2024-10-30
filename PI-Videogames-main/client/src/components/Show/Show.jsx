@@ -12,13 +12,13 @@ export class Show extends Component{
     }
 
     componentDidMount(){
-        this.props.getAllGames()
+        this.props.getAllGames(this.props.page)
     }
 
     componentDidUpdate(){
         if (this.state.show == 'All') {
             this.props.loader()
-            this.props.getAllGames()
+            this.props.getAllGames(this.props.page)
         }
         else if (this.state.show == 'Preexisting'){
             this.props.loader()
@@ -48,7 +48,7 @@ export class Show extends Component{
 
 export function mapDispatchToProps(dispatch){
     return{
-        getAllGames: (()=> dispatch(getAllGames())),
+        getAllGames: ((page)=> dispatch(getAllGames(page))),
         getPreGames: (()=> dispatch(getPreGames())),
         getCreatedGames: (()=> dispatch(getCreatedGames())),
         loader: (() => dispatch(loader()))

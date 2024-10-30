@@ -5,39 +5,42 @@ const {API_KEY} = process.env
 const urlApi = `https://api.rawg.io/api/games`
 
 router.get('/', async(req, res)=>{
-    const {gameName} = req.query
+    const {gameName, page} = req.query
     
     if (!gameName){
         try{
-            let games = []
-            let next  
-            let i = 0
-            while (games.length < 100){
-                !next? results = await axios.get(`${urlApi}?key=${API_KEY}`) : results = next
-                results = results.data
-                next = await axios.get(results.next)
+            const apiGamesResponse = await axios.get(`${urlApi}?key=${API_KEY}&page=${page}&page_size=15`)
+            const {
+                results,
+                count,
+                next,
+                previous
+            } = apiGamesResponse.data
+            
+            let games = results.map((game) => {
+                let formattedGame = {}
+                formattedGame.id = game.id
+                formattedGame.name = game.name
+                formattedGame.released = game.released
+                formattedGame.rating = game.rating
+                let plataformas = game.platforms.map((gamePlat) => {
+                    return gamePlat.platform.name
+                })
+                formattedGame.platforms = plataformas.toString()
+                genres = game.genres.map(genre => {
+                    return genre.name
+                });
+                formattedGame.genre = genres.toString()
+                formattedGame.image = game.background_image
+                return formattedGame
+            })
 
-                let game = results.results.map(function(e){
-                    var obj = {}
-                    obj.id = e.id
-                    obj.name = e.name
-                    obj.released = e.released
-                    obj.rating = e.rating
-                    let plataformas = e.platforms.map(function(e){
-                        return e.platform.name
-                    })
-                    obj.platforms = plataformas.toString()
-                    genres = e.genres.map(genre => {
-                        return genre.name
-                    });
-                    obj.genre = genres.toString()
-                    obj.image = e.background_image
-                    return obj
-                    })
-                
-                    games = games.concat(game)
-                }
-            res.send(games) 
+            res.json({
+                games,
+                count: count > 100 ? 100 : count,
+                next,
+                previous
+            }) 
         }
         catch(Err){
             res.send(Err.message)
