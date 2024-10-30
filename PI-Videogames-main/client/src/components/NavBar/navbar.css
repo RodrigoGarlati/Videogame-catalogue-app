@@ -1,7 +1,7 @@
 .navbar{
+    margin: -1rem -1rem 0 -1rem;
     display: flex;
     flex-direction: row;
-    background: linear-gradient(to right, rgb(4, 0, 6),  rgb(87, 20, 0) 100%);
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color:  rgb(175, 89, 255);
