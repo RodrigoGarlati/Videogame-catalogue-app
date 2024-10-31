@@ -22,11 +22,13 @@ export class Show extends Component{
         }
         else if (this.state.show == 'Preexisting'){
             this.props.loader()
-            this.props.getPreGames()
+            this.props.getPreGames(this.props.page)
         }
-        else if (this.state.show == 'Created') this.props.getCreatedGames()
+        else if (this.state.show == 'Created'){
+            this.props.loader()
+            this.props.getCreatedGames(this.props.page)
+        }
     }
-
     handleShow(e){
         let select = e.target
         let value = select.options[select.selectedIndex].text
@@ -49,8 +51,8 @@ export class Show extends Component{
 export function mapDispatchToProps(dispatch){
     return{
         getAllGames: ((page)=> dispatch(getAllGames(page))),
-        getPreGames: (()=> dispatch(getPreGames())),
-        getCreatedGames: (()=> dispatch(getCreatedGames())),
+        getPreGames: ((page)=> dispatch(getPreGames(page))),
+        getCreatedGames: ((page)=> dispatch(getCreatedGames(page))),
         loader: (() => dispatch(loader()))
     }
 }

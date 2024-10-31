@@ -43,7 +43,9 @@ const Home = function(){
             <NavBar/>
             <br/>
             <div className="searchCont">
-                <SearchBar />
+                <SearchBar 
+                    page={page}
+                />
             </div>
             <br/>
             <div className="show-orgCont">
@@ -77,7 +79,7 @@ const Home = function(){
                         </Link>
                         )) : null}
                     </div>
-                    {!games.length? <h1>No games founded</h1> : null}
+                    {!games.length? <h1 className="empty-games">No games founded</h1> : null}
                 </div>
                 }
             </div>

@@ -37,8 +37,9 @@ export default function superReducer(state = initialState, action){
                 allGames: false,
                 createdGames: false,
                 preGames: true,
-                Games: action.payload,
-                preFilter: action.payload,
+                Games: action.payload.games,
+                preFilter: action.payload.games,
+                totalGames: action.payload.count,
                 loader: false
             };
         case GET_CREATED_GAMES:
@@ -47,8 +48,9 @@ export default function superReducer(state = initialState, action){
                 allGames: false,
                 preGames: false,
                 createdGames: true,
-                Games: action.payload,
-                preFilter: action.payload,
+                Games: action.payload.games,
+                preFilter: action.payload.games,
+                totalGames: action.payload.count,
                 loader: false
             };
         case GET_GAME_DETAIL:

@@ -18,15 +18,14 @@ export const SWITCH_LOADER = 'SWITCH_LOADER';
 
 export function getAllGames(page){
     return async (dispatch) => {
-        let promises = []
-        promises.push(axios.get(`http://localhost:3001/api/videogames?page=${page}`))
-        promises.push(axios.get("http://localhost:3001/db/videogames"))
-        Promise.all(promises).then(function(res){
+        axios.get(`http://localhost:3001/videogames/all?page=${page}`)
+        .then(res => 
             dispatch({type: GET_ALL_GAMES , payload: {
-                games: res[0].data.games.concat(res[1].data.games),
-                count: res[0].data.count + res[1].data.count
-            }})
-        })
+                    games: res.data.games,
+                    count: res.data.count
+                }
+            })
+        )
     }
 }
 
@@ -42,17 +41,26 @@ export function filterGames(filter){
     }
 }
 
-export function getCreatedGames(){
+export function getCreatedGames(page){
     return (dispatch) => {
-        axios.get("http://localhost:3001/db/videogames")
-        .then(res => dispatch({type: GET_CREATED_GAMES, payload: res.data}))
+        axios.get(`http://localhost:3001/db/videogames?page=${page}`)
+        .then(res => dispatch({type: GET_CREATED_GAMES, payload: {
+                games: res.data.games,
+                count: res.data.count
+            }
+        }))
     }
 }
 
-export function getPreGames(){
+export function getPreGames(page){
     return (dispatch) => {
-        axios.get('http://localhost:3001/api/videogames')
-        .then(res => dispatch({type: GET_PRE_GAMES, payload: res.data}))
+        axios.get(`http://localhost:3001/videogames/api?page=${page}`)
+        .then(res => 
+            dispatch({type: GET_PRE_GAMES, payload: {
+                games: res.data.games,
+                count: res.data.count
+            }
+        }))
     }
 }
 
@@ -63,7 +71,7 @@ export function getGameDetail(gameId){
             .then(res => dispatch({type: GET_GAME_DETAIL, payload: res.data}))
         }
         else{
-            axios.get(`http://localhost:3001/api/videogames/${gameId}`)
+            axios.get(`http://localhost:3001/videogames/api/${gameId}`)
             .then(res => dispatch({type:GET_GAME_DETAIL, payload: res.data}))
         }
     }   
@@ -91,14 +99,16 @@ export function editGames(id, toChange, newValue){
 }
 
 
-export function searchGames(game){
+export function searchGames(page, game){
     return (dispatch) => {
-        let promises = []
-        promises.push(axios.get(`http://localhost:3001/api/videogames?gameName=${game}`))
-        promises.push(axios.get(`http://localhost:3001/db/videogames?name=${game}`))
-        Promise.all(promises).then(function(res){
-            dispatch({type: SEARCH_GAMES , payload: res[0].data.concat(res[1].data)})
-        })
+        axios.get(`http://localhost:3001/videogames/all?page=${page}&game_name=${game}`)
+        .then(res => 
+            dispatch({type: GET_ALL_GAMES , payload: {
+                    games: res.data.games,
+                    count: res.data.count
+                }
+            })
+        )
     }
 }
 
