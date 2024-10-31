@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    releaseDate: {
+    released: {
       type: DataTypes.STRING,
     },
     rating: {
@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    image: {
+    background_image: {
       type: DataTypes.STRING(100000),
     },
     genre: {

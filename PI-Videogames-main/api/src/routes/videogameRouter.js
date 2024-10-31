@@ -1,101 +1,58 @@
 const {Router} = require('express')
 const router = Router()
 const axios = require('axios')
-const {API_KEY} = process.env
-const urlApi = `https://api.rawg.io/api/games`
+const { getGamesFromDb, getCountGamesFromDb } = require('../common/getGamesFromDb')
+const { getGamesFromApi, getApiGameById } = require('../common/getGamesFromApi')
+const { PAGES_FOR_API_COUNT_LIMIT } = require('../common/constants')
 
-router.get('/', async(req, res)=>{
-    const {gameName, page} = req.query
-    
-    if (!gameName){
-        try{
-            const apiGamesResponse = await axios.get(`${urlApi}?key=${API_KEY}&page=${page}&page_size=15`)
-            const {
-                results,
-                count,
-                next,
-                previous
-            } = apiGamesResponse.data
-            
-            let games = results.map((game) => {
-                let formattedGame = {}
-                formattedGame.id = game.id
-                formattedGame.name = game.name
-                formattedGame.released = game.released
-                formattedGame.rating = game.rating
-                let plataformas = game.platforms.map((gamePlat) => {
-                    return gamePlat.platform.name
-                })
-                formattedGame.platforms = plataformas.toString()
-                genres = game.genres.map(genre => {
-                    return genre.name
-                });
-                formattedGame.genre = genres.toString()
-                formattedGame.image = game.background_image
-                return formattedGame
-            })
-
-            res.json({
-                games,
-                count: count > 100 ? 100 : count,
-                next,
-                previous
-            }) 
+router.get('/all', async(req, res)=>{
+    const {game_name, page} = req.query
+    try {
+        const dbGamesAmount = await getCountGamesFromDb(game_name)
+        let games = []
+        let count = dbGamesAmount
+        const dbGames = page >= PAGES_FOR_API_COUNT_LIMIT ? await getGamesFromDb(game_name, page) : null
+        const justForCount = page > PAGES_FOR_API_COUNT_LIMIT
+        const apiGames = await getGamesFromApi(game_name, page, justForCount)
+        count += apiGames.count
+        if (page == PAGES_FOR_API_COUNT_LIMIT){
+            games = [...apiGames.games, ...dbGames.games]
         }
-        catch(Err){
-            res.send(Err.message)
+        else if (page < PAGES_FOR_API_COUNT_LIMIT){
+            games = apiGames.games
         }
-    }
-    else{
-        results = await axios.get(`${urlApi}?key=${API_KEY}&search=${gameName}`)
-        results = results.data
-        // res.send(results.results.map(e => e.name))
-        let games = results.results.map(function(e){
-            var obj = {}
-            obj.id = e.id
-            obj.name = e.name
-            obj.released = e.released
-            obj.rating = e.rating
-            let plataformas = e.platforms.map(function(e){
-                return e.platform.name
-            })
-            obj.platforms = plataformas.toString()
-            genres = e.genres.map(genre => {
-                return genre.name
-            });
-            obj.genre = genres.toString()
-            obj.image = e.background_image
-            return obj
+        else if (page > PAGES_FOR_API_COUNT_LIMIT){
+            games = dbGames.games
+        }
+        
+        res.json({
+            games,
+            count
         })
-        games = games.slice(0,15)
-        games.length > 0? res.send(games) : res.send('Any game was finded whit that name')
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(error.message)
     }
 })
 
-router.get('/:id', async (req, res)=>{
+router.get('/api', async(req, res) => {
+    const {gameName, page} = req.query
+    try {
+        const apiGames = await getGamesFromApi(gameName, page)
+        res.json(apiGames)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
+router.get('/api/:id', async (req, res)=>{
     try{
         const {id} = req.params
-        results = await axios.get(`${urlApi}/${id}?key=${API_KEY}`)
-        results = results.data
-        let obj = {}
-        obj.image = results.background_image
-        obj.name = results.name
-        genres = results.genres.map(genre => {
-            return genre.name
-        });
-        obj.genre = genres.toString()
-        obj.description = results.description_raw
-        obj.releaseDate = results.released
-        obj.rating = results.rating
-        platforms = results.platforms.map(element => {
-            return element.platform.name
-        });
-        obj.platforms = platforms.toString()
-        obj.created = false
-        res.json(obj)
+        const game = await getApiGameById(id)
+        res.json(game)
     }
-    catch(err){
-        res.send(err.message)
+    catch(error){
+        res.status(500).json(error)
     }
 })
 

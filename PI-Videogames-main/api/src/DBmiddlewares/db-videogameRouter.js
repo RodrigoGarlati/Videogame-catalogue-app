@@ -1,33 +1,20 @@
 const {Router} = require('express');
 const router = Router();
-const {Op, Videogame} = require('../db')
+const { Videogame } = require('../db')
+const { getGamesFromDb, getCountGamesFromDb } = require( '../common/getGamesFromDb');
 
 router.get('/', async (req, res)=>{
-    const {name} = req.query
-    if (!name){
-        try{
-            let games = await Videogame.findAll()
-            let count = games.length
-            res.json({
-                games,
-                count
-            })
-        }
-        catch(err){
-            res.status(400).json({error: err.message})
-        }
+    const {name, page} = req.query
+    try {
+        const dbGames = await getGamesFromDb(name, page, true)
+        const countDbGames = await getCountGamesFromDb(name)
+        res.json({
+            games: dbGames.games,
+            count: countDbGames
+        })
+    } catch (error) {
+        res.status(500).json(error)
     }
-    else{
-        try{
-            let games = await Videogame.findAll({where: {name: {[Op.like]: `%${name}%`}}})
-            games = games.slice(0,14)
-            res.json(games)
-        }
-        catch(err){
-            res.status(400).json({error: err.message})
-        }
-    }
-    
 })
 
 router.get('/:id', async (req, res)=>{
@@ -38,8 +25,8 @@ router.get('/:id', async (req, res)=>{
         
         res.send(game)
     }
-    catch(err){
-        res.status(404).json({error: err.message})
+    catch(error){
+        res.status(500).json(error)
     }
 })
 
@@ -54,9 +41,9 @@ router.post('/', async (req, res)=>{
             game = await Videogame.create(req.body)
             res.json(game)
         }
-        catch(err){
+        catch(error){
             console.log(err.message)
-            res.status(400).json({error: err.message})
+            res.status(500).json(error)
         }
     }
 })

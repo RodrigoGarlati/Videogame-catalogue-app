@@ -17,7 +17,7 @@ router.get('/', async(req, res)=>{
     res.send(a.data)
 })
 
-router.use('/api/videogames', videogameRouter)
+router.use('/videogames', videogameRouter)
 //router.use('api/genres', genreRouter)
 router.use('/db/videogames', db_videogameRouter)
 router.use('/db/genres', db_genreRouter)
