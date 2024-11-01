@@ -77,13 +77,14 @@ export default function CreateGame(){
     }
 
     const onDropSelect = (title, options) => {
+        const titleLowerCase = title.toLowerCase()
         setInput((prevInput) => {
             return {
                 ...prevInput,
-                [title.toLowerCase()]: options
+                [titleLowerCase]: options
             }
         })
-        cleanErrorField(title)
+        cleanErrorField(titleLowerCase)
     }
 
     function handleSubmit(e){
