@@ -50,7 +50,7 @@ const formatGameObject = (results) => {
         genres = game.genres.map(genre => {
             return genre.name
         });
-        formattedGame.genre = genres.toString()
+        formattedGame.genre = genres.join(', ')
         formattedGame.image = game.background_image
         return formattedGame
     })
