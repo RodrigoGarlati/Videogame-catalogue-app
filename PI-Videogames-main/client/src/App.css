@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.cards-tittle{
+  text-align: center;
+  color: rgb(226, 161, 56);
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 200;
+}
+
+.cards-container{
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 3rem;
+}

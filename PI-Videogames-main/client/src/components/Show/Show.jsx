@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllGames, getCreatedGames, getPreGames, loader } from "../../redux/actions";
-import './show.css'
+import DropdownComponent from "../common/DropdownComponent/DropdownComponent";
 
 export class Show extends Component{
     constructor(props){
@@ -29,21 +29,15 @@ export class Show extends Component{
             this.props.getCreatedGames(this.props.page)
         }
     }
-    handleShow(e){
-        let select = e.target
-        let value = select.options[select.selectedIndex].text
-        this.setState({[select.name]: value})
-    }
 
     render(){
         return(
             <div className="show">
-                <label className="showlabel" htmlFor="show">Show </label>
-                <select className="showselect" id="show" name="show" onChange={e => this.handleShow(e)} >
-                    <option className="showoption">All</option>
-                    <option className="showoption">Preexisting</option>
-                    <option className="showoption">Created</option>
-                </select>
+                <DropdownComponent
+                    title={'Show'}
+                    options={['All', 'Preexisting', 'Created']}
+                    onSelect={(title, selected) => this.setState({show: selected})}
+                />
             </div>
         )}
 }

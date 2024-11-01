@@ -10,7 +10,7 @@ const Landing = () => {
                 <h1 className="title">Welcome to the Videogame catalog app</h1>
                 <div className="holi">
                     <Link to="/home">
-                        <button className="button">ENTER</button>           
+                        <button className="landing-button">ENTER</button>           
                     </Link>
                 </div>
             </div>

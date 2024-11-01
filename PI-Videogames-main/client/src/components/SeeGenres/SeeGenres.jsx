@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllGenres} from "../../redux/actions";
-import GenreCard from "../GenreCard/GenreCard";
-import NavBar from '../NavBar/NavBar'
+import Card from "../common/Card/Card";
 import './seegenres.css'
 
 
@@ -17,13 +16,16 @@ export default function SeeGenres(){
 
     return (
         <div className="seegenres">
-            <NavBar/>
-            <h1 className="genrestitle">Genres</h1>
-            <br/>
-            <div className="genrescont">
+            <h1 className="cards-tittle">Genres</h1>
+            <div className="cards-container">
                 {genres && genres.map(genre => (
                     <div key={genre.id}>
-                        <GenreCard name={genre.name} image={genre.image} games={genre.games} />
+                        <Card 
+                            title={genre.name}
+                            infoTitle={'Example games'} 
+                            info={genre.games} 
+                            image={genre.image} 
+                        />
                     </div>
                 ))}
             </div>

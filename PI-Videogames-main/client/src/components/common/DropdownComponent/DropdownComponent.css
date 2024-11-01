@@ -1,0 +1,135 @@
+.drop-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid transparent;
+}
+
+.container-closed:hover{
+    border-radius: 4px;
+    border: 1px solid rgb(120, 73, 3);
+}
+
+.drop-title-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 8rem;
+    background-color: rgb(0, 0, 0);
+    border-radius: 4px;
+    padding: 5px 10px;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+.drop-title{
+    font-family:'Segoe UI';
+    font-weight: 600;
+    color: rgb(226, 161, 56);
+    text-align: center;
+    width: 6rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.drop-arrow{
+    width: 5px;
+    height: 5px;
+    border-top: 3px solid rgb(226, 161, 56);
+    border-left: 3px solid rgb(226, 161, 56);
+    transition: transform 0.3s ease;
+}
+
+.drop-arrow.closed{
+    transform: rotate(225deg);
+}
+
+.drop-arrow.open{
+    transform: rotate(45deg);
+}
+
+.opened{
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(174, 105, 1);
+    box-shadow: 1px 1px 25px 5px rgb(174, 105, 1);
+}
+
+.drop-options-container{
+    position: absolute;
+    width: fit-content;
+    margin-top: 32px;
+    padding-top: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background-color: rgb(0, 0, 0);
+    color: rgb(226, 161, 56);
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+    transition: opacity 0.3s ease, transform 0.5s ease, max-height 0.5s ease;
+    visibility: hidden;
+    border-left: 1px solid rgb(174, 105, 1);
+    border-bottom: 1px solid rgb(174, 105, 1);
+    border-right: 1px solid rgb(174, 105, 1);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.drop-options-container.show{
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    max-height: fit-content;
+}
+
+.drop-option-item-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-align: center;
+    width: 8rem;
+    height: 100%;
+    padding: 5px 10px;
+    transition: hover 0.5s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid rgb(226, 161, 56);
+}
+
+.drop-option-item-container:hover{
+    border-radius: inherit;
+    background-color: rgb(99, 61, 4);
+}
+
+.drop-options-container > :first-child {
+    border-top: 1px solid rgb(226, 161, 56);
+}
+
+.drop-options-container > :last-child {
+    border-bottom: none;
+}
+
+.selected{
+    background-color: rgb(99, 61, 4);
+}
+
+.check-selected{
+    width: 5px;
+    height: 10px;
+    border-top: 1px solid rgb(226, 161, 56);
+    border-left: 1px solid rgb(226, 161, 56);
+    transform: rotate(225deg);
+}
+
+.drop-error{
+    font-size: 1rem;
+    font-weight: 200;
+    color: red;
+}

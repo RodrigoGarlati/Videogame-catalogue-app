@@ -44,31 +44,30 @@ export default function Gamedetail(){
 
     return(
         <div className="gamedetail">
-            <NavBar/>
-            <br/>
             {typeof game !== 'object' ? <h1 className="status">{game}</h1> :
-                <div>
-                    {delStatus.change? <p className="status">{delStatus.status}</p> : null}
-                    <div className="detailbuttons">
-                    <button className="deletebutton" onClick={e => handleDelete()} disabled={game.created == false || delStatus.status !== ''? true : false }>DELETE GAME</button>
-                        <Link to={`/gamedetail/${game.id}/edit`}>
-                            <button className="editbutton" disabled={game.created == false || delStatus.status !== ''? true : false }>EDIT GAME</button>
-                        </Link>
-                    </div>
-                    <br/>
+                <div className="game-detail-container">
+                    {game.created &&
+                        <>
+                            {delStatus.change && <p className="status">{delStatus.status}</p>}
+                            <div className="detailbuttons">
+                            <button className="detail-button deletebutton" onClick={e => handleDelete()} disabled={game.created == false || delStatus.status !== ''? true : false }>DELETE GAME</button>
+                                <Link to={`/gamedetail/${game.id}/edit`}>
+                                    <button className="detail-button editbutton">EDIT GAME</button>
+                                </Link>
+                            </div>
+                        </>
+                    }
                     <div className="omgcontainer">
-                        <div className="detailscont">
-                            <div className="nameimg">
-                                <h1 className="detailname">{game.name}</h1>
-                                <p className="detailrating">Rating: {game.rating}</p>
-                                <img className="detailimg" src={game.image}></img>
-                            </div>
-                            <div className="detaildescription">
-                                <p>{game.description}</p>
-                                <p>Release date: {game.releaseDate}</p>
-                                <p>Genres: {game.genre}</p>
-                                <p>Platforms: {game.platforms}</p>
-                            </div>
+                        <div className="nameimg">
+                            <h1 className="detailname">{game.name}</h1>
+                            <p className="detailrating">Rating: {game.rating}</p>
+                            <img className="detailimg" src={game.image}></img>
+                        </div>
+                        <div className="detaildescription">
+                            <p>{game.description}</p>
+                            <p>Release date: {game.releaseDate}</p>
+                            <p>Genres: {game.genre}</p>
+                            <p>Platforms: {game.platforms}</p>
                         </div>
                     </div>
                 </div>

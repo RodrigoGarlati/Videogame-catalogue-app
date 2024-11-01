@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { orderGames } from "../../redux/actions";
+import DropdownComponent from "../common/DropdownComponent/DropdownComponent";
 import './organizer.css'
 
 export class Organizer extends Component{
@@ -34,17 +35,14 @@ export class Organizer extends Component{
     render(){
         return(
             <div className="organizer">
-                <label className="organizerlabel">In order </label>
-                <select className="organizerselect" name="order" onChange={e => this.handleSelect(e)}>
-                    <option>Any</option>
-                    <option>Upward</option>
-                    <option>Falling</option>
-                </select>
-                <label className="organizerlabel">Order by </label>
-                <select className="organizerselect" name="orderBy" onChange={e => this.handleSelect(e)}>
-                    <option>Alphabetical</option>
-                    <option>Rating</option>
-                </select>
+                <DropdownComponent
+                    title={'In order'}
+                    options={['Any', 'Ascending', 'Descending']}
+                />
+                <DropdownComponent
+                    title={'Order by'}
+                    options={['Alphabetical', 'Rating']}
+                />
             </div>
         )    
     }

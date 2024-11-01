@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { filterGames, getAllGenres } from "../../redux/actions";
-import './filter.css'
+import DropdownComponent from "../common/DropdownComponent/DropdownComponent";
 
 export class Filter extends Component{
     constructor(props){
@@ -12,22 +12,18 @@ export class Filter extends Component{
         this.props.getAllGenres()
     }
 
-    handleFilter(e){
-        let select = e.target
-        let value = select.options[select.selectedIndex].text
-        this.props.filterGames(value)
+    handleFilter(genre){
+        this.props.filterGames(genre)
     }
 
     render(){
         return(
             <div className="filter">
-                <label className="filterlabel" htmlFor="genre">Genre </label>
-                <select className="filterselect" name="genre" id="genre" onChange={e => this.handleFilter(e)}>
-                    <option>Any</option>
-                    {this.props.genres.map(genre => (
-                        <option>{genre.name}</option>
-                    ))}
-                </select>
+                <DropdownComponent
+                    title={'Genre'}
+                    options={this.props.genres.map(genre => genre.name)}
+                    onSelect={(title, selected) => this.handleFilter(selected)}
+                />
             </div>
         )
     }

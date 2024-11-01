@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
+    padding: 1rem;
 }
 
 .searchlabel{
@@ -15,32 +17,28 @@
 .input-button{
     display: flex;
     justify-content: space-evenly;
-    width: 30vw;
-    margin: 1vh;
+    gap: 1rem;
 }
 
 .searchinput{
-    text-align: center;
+    width: 100%;
     border: 0;
     outline: none;
-    border-radius: 1vw;
+    border-radius: 20px;
     background-color: rgba(59, 36, 2, 0.61);
-    color: rgb(155, 107, 200);
-    font-weight: bold;
-    color: rgb(150, 92, 0);
+    color: rgb(226, 161, 56);
+    text-align: center;
 }
-
-
 
 .searchbutton{
     background-color: rgba(59, 36, 2, 0.61);
-    color: rgb(155, 107, 200);
+    color: rgb(175, 89, 255);
     font-family: Courier New, monospace;
     font-weight: 900;
-    height: 5vh;
-    width: 6vw;
-    border-radius: 1vw;
-    border-color: rgb(155, 107, 200);
+    height: 2rem;
+    width: 8rem;
+    border-radius: 20px;
+    border-color: rgb(175, 89, 255);
     border-style: solid;
     cursor: pointer;
     transition: 200ms;

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './navbar.css'
 
-const Nav = function(){
+const NavBar = function(){
     return(
         <div className="navbar">
             <Link to="/" className="navLink">
@@ -36,4 +36,4 @@ const Nav = function(){
     )
 }
 
-export default (Nav)
+export default NavBar

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createGenre } from "../../redux/actions";
-import GenreCard from "../GenreCard/GenreCard"
+import Card from "../common/Card/Card";
 import { v4 as uuidv4 } from 'uuid';
 import NavBar from '../NavBar/NavBar'
 import './creategenre.css'
@@ -23,7 +23,6 @@ export default function CreateGenre(){
 
     useEffect(()=>{
         setErrors(validate(input))
-        console.log(input.id)
     }, [input])
 
     function validate(input){
@@ -82,7 +81,12 @@ export default function CreateGenre(){
                 {Object.keys(created).length > 0?
                     <div className="statusdiv">
                         <h3 className="gstatus">Your genre has been created succesfuly!</h3>  
-                        <GenreCard name={created.name} image={created.image} games={created.games} />
+                        <Card 
+                            title={created.name}
+                            infoTitle="Example games"
+                            info={created.games}
+                            image={created.image}
+                        />
                     </div>
                     : null
                 }

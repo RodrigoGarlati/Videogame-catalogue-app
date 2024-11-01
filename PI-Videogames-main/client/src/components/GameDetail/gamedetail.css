@@ -1,123 +1,106 @@
+.game-detail-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
 .detailbuttons{
     display: flex;
-    justify-content: space-around;
+    gap: 5rem;
+}
+
+.detail-button{
+    font-family: 'Consolas';
+    font-weight: 800;
+    height: 2.5rem;
+    width: 10rem;
+    border-radius: 10px;
+    border-style: solid;
+    cursor: pointer;
+    transition: 200ms;
 }
 
 .deletebutton{
     background-color: rgba(59, 36, 2, 0.61);
     color: rgb(255, 58, 4);
-    font-family: 'Consolas';
-    font-weight: 900;
-    height: 5vh;
-    border-radius: 1vw;
     border-color: rgb(255, 58, 4);
-    border-style: solid;
-    cursor: pointer;
-    transition: 200ms;
 }
 
 .deletebutton:hover{
     box-shadow: 1px 0 10px 1px rgb(255, 58, 4);
 }
 
-.deletebutton:disabled{
-    display: none;
-}
-
 .editbutton{
-    background-color: rgba(59, 36, 2, 0.61);
-    color: rgb(255, 58, 4);
-    font-family: 'Consolas';
-    font-weight: 900;
-    height: 5vh;
-    border-radius: 1vw;
-    border-color: rgb(255, 58, 4);
-    border-style: solid;
-    cursor: pointer;
-    transition: 200ms;
+    background-color: rgba(15, 104, 1, 0.61);
+    color: rgb(37, 185, 0);
+    border-color: rgb(5, 203, 35);
 }
 
 .editbutton:hover{
-    box-shadow: 1px 0 10px 1px rgb(255, 58, 4);
-}
-
-.editbutton:disabled{
-    display: none;
+    box-shadow: 1px 0 10px 1px rgb(37, 185, 0);
 }
 
 .omgcontainer{
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(255, 58, 4);
-    box-shadow: 0 0 10px 1px rgb(255, 58, 4);
-    width: 80vw;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 3vw;
-}
-
-.detailscont{
     display: flex;
-    justify-content: space-around;
-}
-
-.detailname{
-    text-align: center;
-    font-family:'Segoe UI', sans-serif ;
-    font-weight: bolder;
-    color: rgb(255, 255, 255);
-    padding: 1vw;
-    border-radius: 1vw;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(255, 58, 4);
-    background-color: black;
-}
-
-.detailrating{
-    text-align: center;
-    color: rgb(226, 161, 56);
-    width: 7vw;
-    padding: 1vw;
-    border-radius: 1vw;
-    background-color: black;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    border: 1px solid rgb(175, 89, 255);
+    box-shadow: 0 0 10px 1px rgb(175, 89, 255);
+    width: 80%;
+    padding: 1rem;
 }
 
 .nameimg{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    gap: 1rem;
+    align-self: flex-start;
 }
 
-.detailimg{
-    width: 25vw;
-    height: 30vh;
-    border-radius: 1vw;
-}
-
-.detaildescription{
-    width: 40vw;
-    background-color: rgba(51, 51, 51, 0.523);
-    border-radius: 2vw;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(255, 58, 4);
-    color: rgb(226, 161, 56);
-    padding: 1vw;
-}
-
-.status{
+.detailname{
+    width: 25rem;
+    margin: 0;
+    padding: 5px;
+    border: 1px solid rgb(255, 58, 4);
+    border-radius: 10px;
+    background-color: black;
+    color: rgb(255, 255, 255);
     text-align: center;
     font-family:'Segoe UI', sans-serif ;
     font-weight: bolder;
-    color: rgb(255, 255, 255);
-    padding: 1vw;
-    width: 40vw;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 1vw;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(255, 58, 4);
+}
+
+.detailrating{
+    padding: 0 5px;
+    font-size: 18px;
+    color: rgb(226, 161, 56);
+}
+
+.detailimg{
+    width: 100%;
+    height: 14rem;
+    border: 2px solid rgb(255, 58, 4);
+    border-radius: 10px;
+}
+
+.detaildescription{
+    padding: 0 10px;
+    max-width: 40rem;
+    border-radius: 10px;
+    border: 1px solid rgb(255, 58, 4);
+    color: rgb(226, 161, 56);
+}
+
+.status{
+    padding: 10px;
+    font-size: 35px;
+    border-radius: 10px;
     background-color: black;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 58, 4);
+    text-align: center;
+    font-family:'Segoe UI', sans-serif ;
+    font-weight: bolder;
 }
