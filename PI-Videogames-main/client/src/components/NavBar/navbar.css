@@ -1,9 +1,8 @@
 .navbar{
     display: flex;
     flex-direction: row;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color:  rgb(175, 89, 255);
+    border-top: 1px solid rgb(175, 89, 255);
+    border-bottom: 1px solid rgb(175, 89, 255);
     box-shadow: 0px 1px 10px 1px rgb(175, 89, 255);
 }
 

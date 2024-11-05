@@ -2,102 +2,107 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { editGames } from "../../redux/actions";
-import NavBar from '../NavBar/NavBar'
+import DropdownComponent from "../common/DropdownComponent/DropdownComponent"
+import InputComponent from "../common/InputComponent/InputComponent"
+import TextFieldComponent from "../common/TextFieldComponent/TextFieldComponent"
 import './editgame.css'
 
 export class EditGame extends Component{
     constructor(props){
         super(props)
         this.state = {
-            toChange: [],
-            newValues: []
+            newValues: {
+                'Name': '',
+                'Description': '',
+                'Release date': '',
+                'Rating': '',
+                'Platforms': '',
+                'Genres': '',
+                'Image': ''
+            },
+            selectedInputs: [],
+            amountSelectedValues: 0
         }
         this.id = this.props.match.params.id
-    }
-
-    handleToChange(e){
-        if (this.state.toChange.includes(e.target.name)){
-            let index = this.state.toChange.indexOf(e.target.name)
-            let newArr = this.state.toChange
-            newArr.splice(index, 1)
-            this.setState({
-                ...this.state,
-                toChange: newArr 
-            })
-        }
-        else{
-            this.setState({
-                ...this.state,
-                toChange: [...this.state.toChange, e.target.name]
-            })
-        }
+        this.gameName = this.props.match.params.name
     }
 
     handleNewValue(e){
-        let index = this.state.toChange.indexOf(e.target.name)
-        let newArr = [...this.state.newValues]
-        newArr[index] = e.target.value
+        let newValues = {...this.state.newValues}
+        newValues[e.target.name] = e.target.value
         this.setState({
-            ...this.state,
-            newValues: newArr
+            newValues: newValues
         })
     }
 
     handleSubmit(e){
         e.preventDefault();
-        this.props.editGame(this.id, this.state.toChange, this.state.newValues)
+        this.props.editGame(this.id, this.state.newValues)
+    }
+    
+    handleDropSelection = (title, values) => {
+        this.setState({
+            selectedInputs: values
+        })
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if (JSON.stringify(prevState.newValues) !== JSON.stringify(this.state.newValues)){
+            this.setState({
+                amountSelectedValues: Object.values(this.state.newValues).filter(value => value !== '').length
+            })
+        }
     }
 
     render(){
         return(
-            <div className="editgame">
-                <NavBar/>
-                <h1 className="edittitle">Edit your game</h1>
-                {this.props.edited? <Link to={`/gamedetail/${this.id}`}><p className="status">{this.props.edited}</p></Link> : null}
-                <form className="editform" onSubmit={e => this.handleSubmit(e)}>
-                    <div className="editselectcont">
-                        <p className="editsubtitle">Select the atributtes to edit:</p>
-                        <div>
-                            <label className="editlabel" htmlFor="name"><input  type="checkbox" 
-                            name="name" id="name" onChange={e => this.handleToChange(e)}/> Name </label>
-                        </div>
-                        <div>
-                            <label className="editlabel" htmlFor="description"><input  type="checkbox" 
-                            name="description" id="description" onChange={e => this.handleToChange(e)}/> Description </label>
-                        </div>
-                        <div>
-                            <label className="editlabel" htmlFor="release"> <input  type="checkbox" 
-                            name="releaseDate" id="release" onChange={e => this.handleToChange(e)}/> Release Date </label>
-                        </div>
-                        <div>
-                            <label className="editlabel" htmlFor="rating"><input  type="checkbox" 
-                            name="rating" id="rating" onChange={e => this.handleToChange(e)}/> Rating </label>
-                        </div>
-                        <div>
-                            <label className="editlabel" htmlFor="platforms"><input type="checkbox" 
-                            name="platforms" id="platforms" onChange={e => this.handleToChange(e)}/> Platforms </label>
-                        </div>
-                        <div>
-                            <label className="editlabel" htmlFor="image"><input  type="checkbox" 
-                            name="image" id="image" onChange={e => this.handleToChange(e)}/> Image </label>
-                        </div>
-                        <div>
-                            <label className="editlabel" htmlFor="genre"><input  type="checkbox" 
-                            name="genre" id="genre" onChange={e => this.handleToChange(e)}/> Genres </label>
-                        </div>
-                        <br/>
+            <div className="edit-game">
+                <h1 className="cards-title">Edit your game:</h1>
+                <h1 className="edit-game-name">{this.gameName}</h1>
+                {this.props.edited? <Link to={`/gamedetail/${this.id}`}><p className="request-status">{this.props.edited}</p></Link> : null}
+                <form className="edit-form" onSubmit={e => this.handleSubmit(e)}>
+                    <div className="edit-select-cont">
+                        <p className="edit-subtitle">Select fields to edit</p>
+                        <DropdownComponent
+                            title={'Data to edit'}
+                            options={Object.keys(this.state.newValues)}
+                            onSelect={this.handleDropSelection}
+                            multiSelect={true}
+                        />
                     </div>
-                    
-                    <button className="sendeditbutton" type="submit">EDIT</button>
-                    
-                    <div className="editselectcont2">
-                        <p className="editsubtitle">The new info:</p>
-                        {this.state.toChange.length? this.state.toChange.map(item => (
-                            <div className="toeditcont">                                
-                                <input className="editinput" autoComplete="off" type="text" placeholder={item} name={item} onChange={e => this.handleNewValue(e)} />
-                            </div>
-                        )): null}
+                    <div className="new-fields-cont">
+                        <p className="edit-subtitle">The new info:</p>
+                        <div className="new-fields">
+                            {this.state.selectedInputs.length? this.state.selectedInputs.map(item => (
+                                item !== 'Description' ?
+                                    <div className="toeditcont">
+                                        <InputComponent
+                                            label={item}
+                                            name={item}
+                                            placeholder={item}
+                                            onChange={this.handleNewValue.bind(this)}
+                                            type={item == 'Release date' ? 'date' : item == 'Rating' ? 'number' : 'string'}
+                                        />
+                                    </div>
+                                    :
+                                    <div className="text-field-cont">
+                                        <TextFieldComponent
+                                            label={item}
+                                            name={item}
+                                            placeholder={item}
+                                            onChange={this.handleNewValue.bind(this)}
+                                        />
+                                    </div>
+                            )): null}
+                        </div>
                     </div>
+                    <button 
+                        className="sendeditbutton" 
+                        type="submit" 
+                        disabled={!this.state.selectedInputs.length || !this.state.amountSelectedValues || this.state.selectedInputs.length !== this.state.amountSelectedValues}
+                    >
+                        EDIT
+                    </button>
                 </form>
             </div>
         )
@@ -112,7 +117,7 @@ export function mapStateToProps(state){
 
 export function mapDispatchToProps(dispatch){
     return{
-        editGame: ((id, toChange, newValues)=> dispatch(editGames(id, toChange, newValues)))
+        editGame: ((id, newValues)=> dispatch(editGames(id, newValues)))
     }
 }
 

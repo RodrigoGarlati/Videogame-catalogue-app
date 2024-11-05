@@ -44,14 +44,14 @@ export default function Gamedetail(){
 
     return(
         <div className="gamedetail">
-            {typeof game !== 'object' ? <h1 className="status">{game}</h1> :
+            {typeof game !== 'object' ? <h1 className="request-status">{game}</h1> :
                 <div className="game-detail-container">
                     {game.created &&
                         <>
-                            {delStatus.change && <p className="status">{delStatus.status}</p>}
+                            {delStatus.change && <p className="request-status">{delStatus.status}</p>}
                             <div className="detailbuttons">
                             <button className="detail-button deletebutton" onClick={e => handleDelete()} disabled={game.created == false || delStatus.status !== ''? true : false }>DELETE GAME</button>
-                                <Link to={`/gamedetail/${game.id}/edit`}>
+                                <Link to={`/gamedetail/${game.id}/edit/${game.name}`}>
                                     <button className="detail-button editbutton">EDIT GAME</button>
                                 </Link>
                             </div>

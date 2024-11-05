@@ -13,6 +13,7 @@ const InputComponent = ({label, value, placeholder, name, type, onChange, error,
                     type={type}
                     name={name}
                     placeholder={placeholder}
+                    autoComplete="off"
                 />
             </div>
             {error && <span className="input-error">{error}</span>}

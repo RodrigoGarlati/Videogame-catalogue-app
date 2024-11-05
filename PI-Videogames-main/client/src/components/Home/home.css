@@ -20,7 +20,7 @@
     text-decoration: none;
 }
 
-.selected{
+.page-selected{
     color: rgb(226, 161, 56);
     font-weight: 800;
     border: 1px solid rgb(226, 161, 56);

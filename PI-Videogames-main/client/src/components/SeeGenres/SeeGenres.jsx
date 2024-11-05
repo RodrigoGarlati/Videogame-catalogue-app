@@ -16,7 +16,7 @@ export default function SeeGenres(){
 
     return (
         <div className="seegenres">
-            <h1 className="cards-tittle">Genres</h1>
+            <h1 className="cards-title">Genres</h1>
             <div className="cards-container">
                 {genres && genres.map(genre => (
                     <div key={genre.id}>

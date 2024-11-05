@@ -33,6 +33,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    cursor: pointer;
 }
 
 .drop-arrow{
@@ -76,8 +77,7 @@
     border-left: 1px solid rgb(174, 105, 1);
     border-bottom: 1px solid rgb(174, 105, 1);
     border-right: 1px solid rgb(174, 105, 1);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 10px;
 }
 
 .drop-options-container.show{
@@ -116,8 +116,9 @@
     border-bottom: none;
 }
 
-.selected{
-    background-color: rgb(99, 61, 4);
+.option-selected{
+    background-color: rgb(55, 38, 12);
+    border-radius: 10px;
 }
 
 .check-selected{

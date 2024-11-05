@@ -91,9 +91,9 @@ export function deleteGames(id){
     }
 }
 
-export function editGames(id, toChange, newValue){
+export function editGames(id, newValues){
     return (dispatch) => {
-        axios.put(`http://localhost:3001/db/videogames/${id}`, {toChange, newValue})
+        axios.put(`http://localhost:3001/db/videogames/${id}`, {newValues})
         .then(res => dispatch({type: EDIT_GAME, payload: res.data}))
     }
 }

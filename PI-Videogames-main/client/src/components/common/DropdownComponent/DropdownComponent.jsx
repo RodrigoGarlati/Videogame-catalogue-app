@@ -46,7 +46,7 @@ const DropdownComponent = ( {title, options, onSelect, multiSelect, error} ) => 
     const getDropLabel = () => {
         if (multiSelect){
             if (!valueSelected.length) return title
-            return valueSelected.length == 1 ? valueSelected[0] : `${valueSelected.length} seleccionados`
+            return valueSelected.length == 1 ? valueSelected[0] : `${valueSelected.length} selected`
         }
         return valueSelected ? valueSelected : title
     }
@@ -68,7 +68,7 @@ const DropdownComponent = ( {title, options, onSelect, multiSelect, error} ) => 
                     {options.map(option =>
                         <div 
                             id={option}
-                            className="drop-option-item-container"
+                            className={`drop-option-item-container ${multiSelect && valueSelected.includes(option) ? 'option-selected' : ''}`}
                             onClick={e => handleSelectOption(e)}
                         >
                             {option}

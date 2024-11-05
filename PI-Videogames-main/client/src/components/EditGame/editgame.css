@@ -1,98 +1,108 @@
-.edittitle{
-    text-align: center;
-    color: rgb(226, 161, 56);
-    font-family: 'Segoe UI', sans-serif;
-    font-weight: lighter;
-}
-
-.editsubtitle{
-    color: rgb(226, 161, 56);
-    font-family: 'Segoe UI', sans-serif;
-    font-weight: lighter;
-}
-
-.editform{
+.edit-game{
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.395);
-    border-radius: 2vw;
-    width: 80vw;
-    height: 60vh;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 1vw;
+    height: fit-content;
+    padding: 1rem;
 }
 
-.editselectcont{
+.edit-game-name{
+    padding: 10px;
+    font-size: 35px;
+    border-radius: 10px;
+    background-color: black;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 58, 4);
+    box-shadow: 0 0 10px 1px rgb(255, 58, 4);
+    text-align: center;
+    font-family:'Segoe UI', sans-serif ;
+    font-weight: bolder;
+}
+
+.edit-form{
+    width: 80%;
+    height: 100%;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    width: 20vw;
-    height: 55vh;
+    align-items: center;
+    gap: 1rem;
+    background-color: rgba(0, 0, 0, 0.395);
+    border: 1px solid rgb(175, 89, 255);
+    box-shadow: 0 0 10px 1px rgb(175, 89, 255);
+    border-radius: 10px;
+}
+
+.edit-select-cont{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
     background-color: rgba(53, 33, 0, 0.84);
-    border-radius: 1vw;
-    padding: 1vw;
+    border-radius: 10px;
+}
+
+.new-fields-cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+    background-color: rgba(53, 33, 0, 0.84);
+    border-radius: 10px;
+    padding: 1rem;
     border-style: solid;
     border-width: 1px;
     border-color: rgb(240, 220, 1);
     box-shadow: 0 0 10px 1px rgb(240, 220, 1);
 }
 
-.editselectcont2{
-    width: 20vw;
-    height: 55vh;
-    background-color: rgba(53, 33, 0, 0.84);
-    border-radius: 1vw;
-    padding: 1vw;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgb(240, 220, 1);
-    box-shadow: 0 0 10px 1px rgb(240, 220, 1);
+.new-fields{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
-.editlabel{
+.text-field-cont{
+    width: 100%;
+}
+
+.edit-subtitle{
     color: rgb(226, 161, 56);
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Segoe UI', sans-serif;
     font-weight: lighter;
-    background-color: rgba(0, 0, 0, 0.395);
-    border-radius: 5px;
-    padding: 1vh;
-}
-
-.editinput{
-    color: rgb(226,161,56);
-    background-color: rgba(0, 0, 0, 0.395);
-    border-radius: 5px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgba(87,20,0);
-    margin: 1.5vh;
-    padding: 4px;
     text-align: center;
-    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
 }
 
-.toeditcont{
-    margin-left: 2.5vw;
-}
 
 .sendeditbutton{
-    height: 10vh;
-    width: 10vw;
-    background: none;
-    color: rgb(226,161,56);
+    height: 3rem;
+    width: 8rem;
+    background-color: rgb(226,161,56);
+    color: black;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    border-radius: 1vw;
+    border-radius: 10px;
     border-width: 1px;
-    border-color: rgb(240, 220, 1);
-    transition: 300ms;
+    transition: 0.5s;
     cursor: pointer;
 }
 
-.sendeditbutton:hover{
-    background-color: rgb(226,161,56);
+.sendeditbutton:enabled:hover{
     box-shadow: 0 0 20px 1px rgb(255, 242, 101);
-    color: black;
+    background: none;
+    color: rgb(226,161,56);
+    border-color: rgb(240, 220, 1);
+}
+
+.sendeditbutton:disabled{
+    background: none;
+    border-color: white;
+    color: white;
+    cursor: not-allowed;
 }

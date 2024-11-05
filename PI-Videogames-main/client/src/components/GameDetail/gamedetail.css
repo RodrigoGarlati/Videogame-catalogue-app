@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    margin-top: 2rem;
 }
 
 .detailbuttons{
@@ -87,20 +88,9 @@
 
 .detaildescription{
     padding: 0 10px;
+    width: 100%;
     max-width: 40rem;
     border-radius: 10px;
     border: 1px solid rgb(255, 58, 4);
     color: rgb(226, 161, 56);
-}
-
-.status{
-    padding: 10px;
-    font-size: 35px;
-    border-radius: 10px;
-    background-color: black;
-    color: rgb(255, 255, 255);
-    border: 1px solid rgb(255, 58, 4);
-    text-align: center;
-    font-family:'Segoe UI', sans-serif ;
-    font-weight: bolder;
 }

@@ -51,7 +51,7 @@ const Home = function(){
                 <Organizer/>
                 <Filter/>
             </div>
-            <h1 className="cards-tittle">VIDEOGAMES</h1>
+            <h1 className="cards-title">VIDEOGAMES</h1>
             <div className="omgcont">
                 {loader ? 
                     <div className="loader-cont">
@@ -78,7 +78,7 @@ const Home = function(){
                             {renderGames? numberOfPages().map(e => (
                             <Link className="pagelink" to={`/home?page=${e}`}>
                                 <p 
-                                    className={`pages ${page == e ? 'selected' : ''}`}
+                                    className={`pages ${page == e ? 'page-selected' : ''}`}
                                 >
                                     {e}
                                 </p>
