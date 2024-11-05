@@ -2,6 +2,7 @@ const {Router} = require('express');
 const router = Router();
 const { Videogame } = require('../db')
 const { getGamesFromDb, getCountGamesFromDb } = require( '../common/getGamesFromDb');
+const { EDIT_GAME_EQUIVALENCES } = require('../common/constants')
 
 router.get('/', async (req, res)=>{
     const {name, page} = req.query
@@ -50,21 +51,23 @@ router.post('/', async (req, res)=>{
 
 router.put('/:id', async(req,res) => {
     const {id} = req.params
-    const {toChange, newValue} = req.body
-
-    let promises = []
-
-    for (let i = 0; i < toChange.length; i++){
-        const change = Videogame.update({[toChange[i]]: newValue[i]} ,{where: {id: id}})
-        promises.push(change)
+    const { newValues } = req.body
+    const keysToFormat = Object.keys(EDIT_GAME_EQUIVALENCES)
+    let formattedDataForEdit = {}
+    for (key of keysToFormat){
+        if (!newValues[key]) continue
+        formattedDataForEdit[EDIT_GAME_EQUIVALENCES[key]] = newValues[key]
     }
-
     try{
-        await Promise.all(promises)
+        await Videogame.update(formattedDataForEdit, {
+            where: {
+                id: id
+            }
+        })
         res.send('Game edited succesfuly')
     }
-    catch(err){
-        res.status(400).send(err.message)
+    catch(error){
+        res.status(500).send(error.message)
     }
 
 })
