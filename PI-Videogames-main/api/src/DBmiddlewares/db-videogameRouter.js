@@ -33,8 +33,7 @@ router.get('/:id', async (req, res)=>{
 
 router.post('/', async (req, res)=>{
     req.body.platforms = req.body.platforms.toString()
-    req.body.genre = req.body.genre.toString()
-  
+    req.body.genre = req.body.genres.toString()
 
     if (!req.body.id || !req.body.name || !req.body.description || !req.body.platforms) res.status(404).send(`Necessary data is missing`)
     else{
