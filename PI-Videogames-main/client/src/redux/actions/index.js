@@ -1,4 +1,5 @@
 const axios = require('axios').default;
+const { REACT_APP_API_URL } = process.env 
 
 export const GET_ALL_GAMES = 'GET_ALL_GAMES';
 export const ORDER_GAMES = 'ORDER_GAMES'
@@ -18,7 +19,7 @@ export const SWITCH_LOADER = 'SWITCH_LOADER';
 
 export function getAllGames(page){
     return async (dispatch) => {
-        axios.get(`http://localhost:3001/videogames/all?page=${page}`)
+        axios.get(`${REACT_APP_API_URL}/videogames/all?page=${page}`)
         .then(res => 
             dispatch({type: GET_ALL_GAMES , payload: {
                     games: res.data.games,
@@ -43,7 +44,7 @@ export function filterGames(filter){
 
 export function getCreatedGames(page){
     return (dispatch) => {
-        axios.get(`http://localhost:3001/db/videogames?page=${page}`)
+        axios.get(`${REACT_APP_API_URL}/db/videogames?page=${page}`)
         .then(res => dispatch({type: GET_CREATED_GAMES, payload: {
                 games: res.data.games,
                 count: res.data.count
@@ -54,7 +55,7 @@ export function getCreatedGames(page){
 
 export function getPreGames(page){
     return (dispatch) => {
-        axios.get(`http://localhost:3001/videogames/api?page=${page}`)
+        axios.get(`${REACT_APP_API_URL}/videogames/api?page=${page}`)
         .then(res => 
             dispatch({type: GET_PRE_GAMES, payload: {
                 games: res.data.games,
@@ -67,11 +68,11 @@ export function getPreGames(page){
 export function getGameDetail(gameId){
     return (dispatch) => {
         if (gameId.length == 36){
-            axios.get(`http://localhost:3001/db/videogames/${gameId}`)
+            axios.get(`${REACT_APP_API_URL}/db/videogames/${gameId}`)
             .then(res => dispatch({type: GET_GAME_DETAIL, payload: res.data}))
         }
         else{
-            axios.get(`http://localhost:3001/videogames/api/${gameId}`)
+            axios.get(`${REACT_APP_API_URL}/videogames/api/${gameId}`)
             .then(res => dispatch({type:GET_GAME_DETAIL, payload: res.data}))
         }
     }   
@@ -79,21 +80,21 @@ export function getGameDetail(gameId){
 
 export function createGame(newGame){
     return (dispatch) => {
-        axios.post(`http://localhost:3001/db/videogames`, newGame)
+        axios.post(`${REACT_APP_API_URL}/db/videogames`, newGame)
         .then(res => dispatch({type: CREATE_GAME, payload: res.data}))
     }
 }
 
 export function deleteGames(id){
     return (dispatch) => {
-        axios.delete(`http://localhost:3001/db/videogames/${id}`)
+        axios.delete(`${REACT_APP_API_URL}/db/videogames/${id}`)
         .then(res => dispatch({type: DELETE_GAME, payload: res.data}))
     }
 }
 
 export function editGames(id, newValues){
     return (dispatch) => {
-        axios.put(`http://localhost:3001/db/videogames/${id}`, {newValues})
+        axios.put(`${REACT_APP_API_URL}/db/videogames/${id}`, {newValues})
         .then(res => dispatch({type: EDIT_GAME, payload: res.data}))
     }
 }
@@ -101,7 +102,7 @@ export function editGames(id, newValues){
 
 export function searchGames(page, game){
     return (dispatch) => {
-        axios.get(`http://localhost:3001/videogames/all?page=${page}&game_name=${game}`)
+        axios.get(`${REACT_APP_API_URL}/videogames/all?page=${page}&game_name=${game}`)
         .then(res => 
             dispatch({type: GET_ALL_GAMES , payload: {
                     games: res.data.games,
@@ -115,14 +116,14 @@ export function searchGames(page, game){
 
 export function getAllGenres(){
     return(dispatch) => {
-        axios.get("http://localhost:3001/db/genres/initial")
+        axios.get(`${REACT_APP_API_URL}/db/genres/initial`)
         .then(res => dispatch({type: GET_ALL_GENRES, payload: res.data}))
     }
 }
 
 export function createGenre(newGenre){
     return (dispatch) => {
-        axios.post("http://localhost:3001/db/genres", newGenre)
+        axios.post(`${REACT_APP_API_URL}/db/genres`, newGenre)
         .then(res => dispatch({type: CREATE_GENRE, payload: res.data}))
     }
 }
