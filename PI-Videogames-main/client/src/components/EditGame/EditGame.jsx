@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { editGames } from "../../redux/actions";
+import { editGames, loader } from "../../redux/actions";
 import DropdownComponent from "../common/DropdownComponent/DropdownComponent"
 import InputComponent from "../common/InputComponent/InputComponent"
 import TextFieldComponent from "../common/TextFieldComponent/TextFieldComponent"
+import Loader from "../Loader/Loader"
 import './editgame.css'
 
 export class EditGame extends Component{
@@ -25,6 +26,7 @@ export class EditGame extends Component{
         }
         this.id = this.props.match.params.id
         this.gameName = this.props.match.params.name
+        this.optionsGenres = this.props.genres.map(genre => genre.name)
     }
 
     handleNewValue(e){
@@ -37,12 +39,21 @@ export class EditGame extends Component{
 
     handleSubmit(e){
         e.preventDefault();
+        this.props.loader(true)
         this.props.editGame(this.id, this.state.newValues)
     }
     
-    handleDropSelection = (title, values) => {
+    handleDropSelection(title, values){
         this.setState({
             selectedInputs: values
+        })
+    }
+
+    handleGenreSelection(title, value){
+        let newValues = {...this.state.newValues}
+        newValues[title] = value.join(', ')
+        this.setState({
+            newValues: newValues
         })
     }
 
@@ -57,6 +68,11 @@ export class EditGame extends Component{
     render(){
         return(
             <div className="edit-game">
+                {this.props.loading &&
+                    <div className="loader-cont">
+                        <Loader/>
+                    </div>
+                }
                 <h1 className="cards-title">Edit your game:</h1>
                 <h1 className="edit-game-name">{this.gameName}</h1>
                 {this.props.edited? <Link to={`/gamedetail/${this.id}`}><p className="request-status">{this.props.edited}</p></Link> : null}
@@ -66,7 +82,7 @@ export class EditGame extends Component{
                         <DropdownComponent
                             title={'Data to edit'}
                             options={Object.keys(this.state.newValues)}
-                            onSelect={this.handleDropSelection}
+                            onSelect={this.handleDropSelection.bind(this)}
                             multiSelect={true}
                         />
                     </div>
@@ -74,6 +90,14 @@ export class EditGame extends Component{
                         <p className="edit-subtitle">The new info:</p>
                         <div className="new-fields">
                             {this.state.selectedInputs.length? this.state.selectedInputs.map(item => (
+                                item == 'Genres' && this.optionsGenres.length?
+                                    <DropdownComponent
+                                        title={item}
+                                        options={this.optionsGenres}
+                                        multiSelect={true}
+                                        onSelect={this.handleGenreSelection.bind(this)}
+                                    />
+                                    :
                                 item !== 'Description' ?
                                     <div className="toeditcont">
                                         <InputComponent
@@ -111,13 +135,16 @@ export class EditGame extends Component{
 
 export function mapStateToProps(state){
     return{
-        edited: state.editGame
+        edited: state.editGame,
+        genres: state.allGenres,
+        loading: state.loader
     }
 }
 
 export function mapDispatchToProps(dispatch){
     return{
-        editGame: ((id, newValues)=> dispatch(editGames(id, newValues)))
+        editGame: ((id, newValues) => dispatch(editGames(id, newValues))),
+        loader: (value) => dispatch(loader(value))
     }
 }
 

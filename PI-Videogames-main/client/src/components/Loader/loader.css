@@ -1,9 +1,10 @@
 .spinner {
   border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 15vw;
-  height: 30vh;
+  width: 15rem;
+  height: 15rem;
   border-radius: 50%;
-  border-top-color: rgb(155, 107, 200) ;
+  border-top-color: rgb(192, 136, 245);
+  box-shadow: 0 -35px 35px -35px rgb(175, 89, 255);
   animation: spin 2s linear infinite;
 }
 

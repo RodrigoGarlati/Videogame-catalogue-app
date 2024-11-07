@@ -17,7 +17,7 @@ export class SearchBar extends Component{
 
     handleSubmit(e){
         e.preventDefault();
-        this.props.loader()
+        this.props.loader(true)
         this.props.searchGames(this.props.page, this.state.name)
     }
 
@@ -41,7 +41,7 @@ export class SearchBar extends Component{
 export function mapDispatchToProps(dispatch){
     return {
         searchGames: ((page, game) => dispatch(searchGames(page, game))),
-        loader: (() => dispatch(loader()))
+        loader: ((value) => dispatch(loader(value)))
     }
 
 }

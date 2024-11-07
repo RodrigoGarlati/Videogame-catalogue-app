@@ -2,29 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getGameDetail, deleteGames } from "../../redux/actions";
-import NavBar from '../NavBar/NavBar'
+import { getGameDetail, deleteGames, loader } from "../../redux/actions";
 import './gamedetail.css'
+import Loader from "../Loader/Loader";
 
 export default function Gamedetail(){
     let {id} = useParams()
     const dispatch = useDispatch()
-    const [created, setCreated] = useState({
-        created: false
-    })
-
     const [delStatus, setDelStatus] = useState({
         change: false,
         status: ''
     })
     const game = useSelector(state => state.gameDetail)
     const delGame = useSelector(state => state.deleteGame)
+    const loading = useSelector(state => state.loader)
 
     useEffect(()=>{
+        dispatch(loader(true))
         dispatch(getGameDetail(id))
-        if(id.length == 36){
-            setCreated({created: true})
-        }
     } , [])
 
     useEffect(()=>{
@@ -35,6 +30,7 @@ export default function Gamedetail(){
     }, [delGame])
     
     function handleDelete(){
+        dispatch(loader(true))
         dispatch(deleteGames(game.id))
         setDelStatus({
             ...delStatus,
@@ -44,6 +40,11 @@ export default function Gamedetail(){
 
     return(
         <div className="gamedetail">
+            {loading &&
+                <div className="loader-cont">
+                    <Loader/>
+                </div>
+            }
             {typeof game !== 'object' ? <h1 className="request-status">{game}</h1> :
                 <div className="game-detail-container">
                     {game.created &&

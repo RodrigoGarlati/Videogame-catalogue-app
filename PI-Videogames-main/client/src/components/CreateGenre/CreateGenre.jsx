@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createGenre } from "../../redux/actions";
+import { createGenre, loader } from "../../redux/actions";
 import Card from "../common/Card/Card";
 import { v4 as uuidv4 } from 'uuid';
-import NavBar from '../NavBar/NavBar'
+import InputComponent from "../common/InputComponent/InputComponent";
+import TextFieldComponent from "../common/TextFieldComponent/TextFieldComponent";
 import './creategenre.css'
+import Loader from "../Loader/Loader";
 
 export default function CreateGenre(){
     const [input, setInput] = useState({
@@ -15,72 +17,47 @@ export default function CreateGenre(){
         change: false
     })
 
-    const [errors, setErrors] = useState({
-        disable: true
-    })
+    const [errors, setErrors] = useState(null)
 
     const created = useSelector(state => state.createdGenre)
-
-    useEffect(()=>{
-        setErrors(validate(input))
-    }, [input])
+    const loading = useSelector(state => state.loader)
 
     function validate(input){
         let errors = {}
-
         if (!input.name){
             errors.name = '* (We need a genre name)'
         }
-
-        if (!errors.name){
-            errors.disable = false
-        }
-        
         return errors
     }
 
     function changeHandler(e){
-        setInput({
+        const newInput = {
             ...input,
             [e.target.name]: e.target.value
-        })
+        } 
+        setInput(newInput)
+        setErrors(validate(newInput))
     }
 
     const dispatch = useDispatch()
 
     function handleSubmit(e){
         e.preventDefault();
+        dispatch(loader(true))
         dispatch(createGenre(input))
     }
 
     return(
-        <div className="creategenre">
-            <NavBar/>
+        <div className="create-genre">
+            {loading &&
+                <div className="loader-cont"> 
+                    <Loader/>
+                </div>
+            }
             <h1 className="gcreatetitle">CREATE GENRE</h1>
-            <div className="gcreateallcont">
-                <form className="creategenreform" onSubmit={e => handleSubmit(e)}>
-                    <div className="gcreatediv">
-                        <label className="createlabel">Name</label>
-                        <input className="createinput" autoComplete="off" type="text" name="name" placeholder="Name..." onChange={e => changeHandler(e)}/>
-                        {errors.name && 
-                        <p className="errors">{errors.name}</p>}
-                    </div>
-                    <br/>
-                    <div className="gcreatediv">
-                        <label className="createlabel">Image url</label>
-                        <input className="createinput" autoComplete="off" type="text" name="image" placeholder="Image url..." onChange={e => changeHandler(e)}/>
-                    </div>
-                    <br/>
-                    <div className="gcreatediv">
-                        <label className="createlabel">Example games</label>
-                        <input className="createinput" autoComplete="off" type="text" name="games" placeholder="Example games..." onChange={e => changeHandler(e)} />
-                    </div>
-                    <br/>
-                    <button className="buttoncreate" type="submit"> CREATE </button>
-                </form>
                 {Object.keys(created).length > 0?
                     <div className="statusdiv">
-                        <h3 className="gstatus">Your genre has been created succesfuly!</h3>  
+                        <h3 className="request-status">Your genre has been created succesfuly!</h3>  
                         <Card 
                             title={created.name}
                             infoTitle="Example games"
@@ -90,7 +67,31 @@ export default function CreateGenre(){
                     </div>
                     : null
                 }
-            </div>
+                <form className="creategenreform" onSubmit={e => handleSubmit(e)}>
+                    <InputComponent
+                        label={'Name'}
+                        name={'name'}
+                        value={input.name}
+                        placeholder={'Name..'}
+                        onChange={changeHandler}
+                        error={errors?.name}
+                    />
+                    <InputComponent
+                        label={'Image'}
+                        name={'image'}
+                        value={input.image}
+                        placeholder={'Image url..'}
+                        onChange={changeHandler}
+                    />
+                    <TextFieldComponent
+                        label={'Example games'}
+                        name={'games'}
+                        value={input.games}
+                        placeholder={'Example games..'}
+                        onChange={changeHandler}
+                    />
+                    <button className="buttoncreate" type="submit" disabled={!input.name || !!errors?.name}> CREATE </button>
+                </form>
         </div>
     )
 }

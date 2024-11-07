@@ -15,7 +15,7 @@ const initialState = {
     editGame: '', 
     allGenres: [],
     createdGenre: {},
-    loader: true
+    loader: false
 }
 
 export default function superReducer(state = initialState, action){
@@ -29,7 +29,7 @@ export default function superReducer(state = initialState, action){
                 Games: action.payload.games,
                 preFilter: action.payload.games,
                 totalGames: action.payload.count,
-                loader: false
+                loader: !action.payload.games.length ? false : state.loader
             };
         case GET_PRE_GAMES:
             return{
@@ -40,7 +40,7 @@ export default function superReducer(state = initialState, action){
                 Games: action.payload.games,
                 preFilter: action.payload.games,
                 totalGames: action.payload.count,
-                loader: false
+                loader: !action.payload.games.length ? false : state.loader
             };
         case GET_CREATED_GAMES:
             return{
@@ -51,70 +51,74 @@ export default function superReducer(state = initialState, action){
                 Games: action.payload.games,
                 preFilter: action.payload.games,
                 totalGames: action.payload.count,
-                loader: false
+                loader: !action.payload.games.length ? false : state.loader
             };
         case GET_GAME_DETAIL:
             if (!action.payload){
                 return {
                     ...state,
-                    gameDetail: 'Game not founded'
+                    gameDetail: 'Game not founded',
+                    loader: false
                 }
             }
             else {
                 return{
                     ...state,
-                    gameDetail: action.payload
+                    gameDetail: action.payload,
+                    loader: false
                 }
             };
         case SEARCH_GAMES:
             return{
                 ...state,
                 searchedGames: action.payload,
-                loader: false
             };
         case CREATE_GAME:
             return{
                 ...state,
                 createdGame: action.payload,
+                loader: false
             };
         case CREATE_GENRE:
             return{
                 ...state,
                 createdGenre: action.payload,
+                loader: false
             };
         case GET_ALL_GENRES:
             return{
                 ...state,
-                allGenres: action.payload
+                allGenres: action.payload,
             };
         case ORDER_GAMES:
             let {order, orderBy} = action.payload
             if (!order){
                 return{
                     ...state,
-                    Games: state.preFilter
+                    Games: state.preFilter,
+                    loader: false
                 }
             }
             else if (orderBy === 'Rating'){
                 let pre = [...state.preFilter]
-                if (order === 'Upward'){
+                if (order === 'Ascending'){
                     return{
                         ...state,
-                        Games: [...state.Games.sort((a,b)=>{return b.rating - a.rating})],
+                        Games: [...state.Games.sort((a,b)=>{return a.rating - b.rating})],
                         preFilter: pre
                     }
                 }
                 else{
                     return{
                         ...state,
-                        Games: [...state.Games.sort((a,b)=>{return a.rating - b.rating})],
-                        preFilter: pre 
+                        Games: [...state.Games.sort((a,b)=>{return b.rating - a.rating})],
+                        preFilter: pre
                     }
                 } 
             }
             else{
                 let pre = [...state.preFilter]
-                if (order === 'Upward'){
+                if (order === 'Ascending'){
                     return{
                         ...state,
                         Games: [...state.Games.sort((a,b)=>{return a.name.localeCompare(b.name)})],
@@ -145,19 +149,21 @@ export default function superReducer(state = initialState, action){
         case DELETE_GAME:
             return{
                 ...state,
-                deleteGame: action.payload
+                deleteGame: action.payload,
+                loader: false
             }
-        default:
-            return state
         case EDIT_GAME:
             return{
                 ...state,
-                editGame: action.payload
+                editGame: action.payload,
+                loader: false
             }
         case SWITCH_LOADER:
             return {
                 ...state,
-                loader: state.loader == true? false : true
+                loader: action.payload
             }
+        default:
+            return state
     }
 };

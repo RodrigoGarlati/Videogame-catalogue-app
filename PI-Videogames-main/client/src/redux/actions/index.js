@@ -127,8 +127,8 @@ export function createGenre(newGenre){
     }
 }
 
-export function loader(){
+export function loader(value){
     return(dispatch) => {
-        dispatch({type: SWITCH_LOADER})
+        dispatch({type: SWITCH_LOADER, payload: value})
     }
 }

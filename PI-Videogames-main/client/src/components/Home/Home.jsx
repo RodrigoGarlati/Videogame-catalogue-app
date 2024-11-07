@@ -1,6 +1,7 @@
 import React, { useState , useEffect} from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { loader } from "../../redux/actions";
 import SearchBar from "../SearchBar/SearchBar";
 import Card from "../common/Card/Card";
 import './home.css'
@@ -14,9 +15,10 @@ const Home = function(){
     const games = useSelector(state => state.Games)
     const totalGames = useSelector(state => state.totalGames)
     const searched = useSelector(state => state.searchedGames)
-    const loader = useSelector(state => state.loader)
+    const loading = useSelector(state => state.loader)
+    const dispatch = useDispatch()
     const [renderGames, setRender] = useState([])
-
+    const [firstRender, setFirstRender] = useState(true)
     
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search)
@@ -24,13 +26,20 @@ const Home = function(){
     if (!page) page = 1
 
     useEffect(()=>{
+        setFirstRender(false)
+    },[])
+
+    useEffect(()=>{
         setRender(searched)
     },[searched])
     
     useEffect(()=>{
-        setRender(games)
+        if (firstRender) return
+        if (games.length){
+            setRender(games)
+            dispatch(loader(false))
+        }
      },[games])
-
 
     function numberOfPages(){
         let amountOfPages = Math.ceil(totalGames / 15)
@@ -53,7 +62,7 @@ const Home = function(){
             </div>
             <h1 className="cards-title">VIDEOGAMES</h1>
             <div className="omgcont">
-                {loader ? 
+                {loading ? 
                     <div className="loader-cont">
                         <Loader/>
                     </div> 

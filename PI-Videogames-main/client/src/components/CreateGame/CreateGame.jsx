@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createGame, getAllGenres } from "../../redux/actions";
+import { createGame, getAllGenres, loader } from "../../redux/actions";
 import Card from '../common/Card/Card';
 import { v4 as uuidv4 } from 'uuid';
 import InputComponent from "../common/InputComponent/InputComponent";
 import TextFieldComponent from "../common/TextFieldComponent/TextFieldComponent";
 import DropdownComponent from "../common/DropdownComponent/DropdownComponent";
+import Loader from "../Loader/Loader"
 import './creategame.css'
 
 export default function CreateGame(){
@@ -26,8 +27,8 @@ export default function CreateGame(){
     const [errors, setErrors] = useState({})
 
     const genres = useSelector(state => state.allGenres)
-    const created = useSelector(state => state.createdGame) 
-
+    const created = useSelector(state => state.createdGame)
+    const loading = useSelector(state => state.loader)
     const dispatch = useDispatch()
 
     const platforms = ['PC', 'Playstation 3', 'Playstation 4', 'Playstation 5',
@@ -62,10 +63,9 @@ export default function CreateGame(){
     }
 
     const cleanErrorField = (field) => {
-        setErrors({
-            ...errors,
-            [field]: null
-        })
+        let newErrors = errors
+        delete newErrors[field]
+        setErrors(newErrors)
     }
 
     function changeHandler(e){
@@ -89,14 +89,20 @@ export default function CreateGame(){
 
     function handleSubmit(e){
         e.preventDefault();
+        dispatch(loader(true))
         const hasErrors = validate()
         if (hasErrors) return
         dispatch(createGame(input))
     };
     
     return (
-        <div className="creategame">
-            <h1 className="createtitle">Create new game: </h1>
+        <div className="create-game">
+            {loading && 
+                <div className="loader-cont">
+                    <Loader/>
+                </div>
+            }
+            <h1 className="create-title">Create new game</h1>
             <div className="omgcont">
                 <form className="createform" onSubmit={(e) => handleSubmit(e)}>
                     <InputComponent
@@ -158,21 +164,19 @@ export default function CreateGame(){
                             onChange={changeHandler}
                         />
                     </div>
-                    <div className="buttoncreatediv">
-                        <button className="buttoncreate" type="submit" disabled={errors.disable? true : false} > CREATE </button>
-                    </div>
+                    <button className="button-create" type="submit" disabled={Object.keys(errors).length}> CREATE </button>
                 </form>
-                <div className="createcardcont">
+                <div className="create-card-cont">
                     {Object.keys(created).length?
                     <div className="preview">
-                        <h2 className="previewtitle">Your game has been created succesfuly!</h2>
+                        <h2 className="preview-title">Your game has been created succesfuly!</h2>
                         <Link to={`/gamedetail/${created.id}`}>
                             <Card name={created.name} image={created.image} genres={created.genre}/>
                         </Link>
                     </div> 
                     :
                     <div className="preview">
-                        <h2 className="previewtitle">Your game:</h2>
+                        <h2 className="preview-title">Your game:</h2>
                         <Card 
                             title={input.name}
                             image={input.image}

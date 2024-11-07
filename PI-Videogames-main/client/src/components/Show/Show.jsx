@@ -12,20 +12,19 @@ export class Show extends Component{
     }
 
     componentDidMount(){
+        this.props.loader(true)
         this.props.getAllGames(this.props.page)
     }
 
     componentDidUpdate(){
+        this.props.loader(true)
         if (this.state.show == 'All') {
-            this.props.loader()
             this.props.getAllGames(this.props.page)
         }
         else if (this.state.show == 'Preexisting'){
-            this.props.loader()
             this.props.getPreGames(this.props.page)
         }
         else if (this.state.show == 'Created'){
-            this.props.loader()
             this.props.getCreatedGames(this.props.page)
         }
     }
@@ -47,7 +46,7 @@ export function mapDispatchToProps(dispatch){
         getAllGames: ((page)=> dispatch(getAllGames(page))),
         getPreGames: ((page)=> dispatch(getPreGames(page))),
         getCreatedGames: ((page)=> dispatch(getCreatedGames(page))),
-        loader: (() => dispatch(loader()))
+        loader: ((value) => dispatch(loader(value)))
     }
 }
 

@@ -14,6 +14,8 @@ const InputComponent = ({label, value, placeholder, name, type, onChange, error,
                     name={name}
                     placeholder={placeholder}
                     autoComplete="off"
+                    max={type == 'number' ? 5 : null}
+                    min={type == 'number' ? 0 : null}
                 />
             </div>
             {error && <span className="input-error">{error}</span>}
