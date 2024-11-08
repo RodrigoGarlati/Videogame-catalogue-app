@@ -90,7 +90,7 @@ export default function CreateGenre(){
                         placeholder={'Example games..'}
                         onChange={changeHandler}
                     />
-                    <button className="buttoncreate" type="submit" disabled={!input.name || !!errors?.name}> CREATE </button>
+                    <button className="button-create" type="submit" disabled={!input.name || !!errors?.name}> CREATE </button>
                 </form>
         </div>
     )

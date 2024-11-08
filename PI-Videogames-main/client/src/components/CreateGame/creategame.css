@@ -7,7 +7,7 @@
 
 .omgcont{
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-around;
     padding: 2rem;
 }
 
@@ -54,9 +54,6 @@
 
 .create-card-cont{
     padding: 1rem;
-    position: fixed;
-    right: 0;
-    margin-right: 10rem;
     background-color: rgba(0, 0, 0, 0.395);
     border-radius: 10px;
 }

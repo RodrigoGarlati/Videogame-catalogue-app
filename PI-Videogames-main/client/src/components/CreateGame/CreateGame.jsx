@@ -91,7 +91,9 @@ export default function CreateGame(){
         e.preventDefault();
         dispatch(loader(true))
         const hasErrors = validate()
-        if (hasErrors) return
+        if (hasErrors){
+            return dispatch(loader(false))
+        }
         dispatch(createGame(input))
     };
     

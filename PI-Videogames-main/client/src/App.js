@@ -15,13 +15,15 @@ function App() {
   return (
     <React.Fragment>
       {location.pathname !== '/' && <NavBar/>}
-      <Route exact path="/" component={Landing} />
-      <Route exact path="/home" component={Home} />
-      <Route exact path="/gamedetail/:id" component={Gamedetail} />
-      <Route exact path="/gamedetail/:id/edit/:name" component={EditGame} />
-      <Route exact path="/creategame" component={CreateGame} />
-      <Route exact path="/genres" component={SeeGenres} />
-      <Route exact path="/creategenre" component={CreateGenre} />
+      <div className='app-content'>
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/gamedetail/:id" component={Gamedetail} />
+        <Route exact path="/gamedetail/:id/edit/:name" component={EditGame} />
+        <Route exact path="/creategame" component={CreateGame} />
+        <Route exact path="/genres" component={SeeGenres} />
+        <Route exact path="/creategenre" component={CreateGenre} />
+      </div>
     </React.Fragment>
   );
 }
