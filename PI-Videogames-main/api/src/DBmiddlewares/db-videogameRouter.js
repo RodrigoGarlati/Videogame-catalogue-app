@@ -42,7 +42,7 @@ router.post('/', async (req, res)=>{
             res.json(game)
         }
         catch(error){
-            console.log(err.message)
+            console.log(error.message)
             res.status(500).json(error)
         }
     }
