@@ -51,9 +51,9 @@ export default function Gamedetail(){
                         <>
                             {delStatus.change && <p className="request-status">{delStatus.status}</p>}
                             <div className="detailbuttons">
-                            <button className="detail-button deletebutton" onClick={e => handleDelete()} disabled={game.created == false || delStatus.status !== ''? true : false }>DELETE GAME</button>
-                                <Link to={`/gamedetail/${game.id}/edit/${game.name}`}>
-                                    <button className="detail-button editbutton">EDIT GAME</button>
+                            <button className="detail-button deletebutton" onClick={e => handleDelete()} disabled={game.created == false || delStatus.change ? true : false }>DELETE GAME</button>
+                                <Link to={!delStatus.change && `/gamedetail/${game.id}/edit/${game.name}`}>
+                                    <button className="detail-button editbutton" disabled={delStatus.change}>EDIT GAME</button>
                                 </Link>
                             </div>
                         </>
@@ -66,7 +66,7 @@ export default function Gamedetail(){
                         </div>
                         <div className="detaildescription">
                             <p>{game.description}</p>
-                            <p>Release date: {game.releaseDate}</p>
+                            <p>Release date: {game.released}</p>
                             <p>Genres: {game.genre}</p>
                             <p>Platforms: {game.platforms}</p>
                         </div>

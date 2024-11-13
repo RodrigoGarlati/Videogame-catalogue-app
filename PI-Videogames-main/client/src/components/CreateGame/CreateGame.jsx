@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createGame, getAllGenres, loader } from "../../redux/actions";
+import { createGame, getAllGenres, loader, cleanCreated } from "../../redux/actions";
 import Card from '../common/Card/Card';
 import { v4 as uuidv4 } from 'uuid';
 import InputComponent from "../common/InputComponent/InputComponent";
@@ -17,7 +17,7 @@ export default function CreateGame(){
         name: '',
         description: '',
         platforms: [],
-        releaseDate: '',
+        released: '',
         rating: 0,
         image: '',
         genres: [],
@@ -36,6 +36,9 @@ export default function CreateGame(){
     
     useEffect(()=>{
         dispatch(getAllGenres())
+        return () => {
+            dispatch(cleanCreated())
+        }
     }, [])
 
     useEffect(()=>{
@@ -142,8 +145,8 @@ export default function CreateGame(){
                     <div className="inputs-container">  
                         <InputComponent
                             label={'Released at'}
-                            value={input.releaseDate}
-                            name={'releaseDate'}
+                            value={input.released}
+                            name={'released'}
                             type={'date'}
                             placeholder={'Release date'}
                             onChange={changeHandler}
@@ -173,7 +176,12 @@ export default function CreateGame(){
                     <div className="preview">
                         <h2 className="preview-title">Your game has been created succesfuly!</h2>
                         <Link to={`/gamedetail/${created.id}`}>
-                            <Card name={created.name} image={created.image} genres={created.genre}/>
+                            <Card 
+                                title={created.name}
+                                image={created.image}
+                                infoTitle={'Genres'}
+                                info={created.genre}
+                            />
                         </Link>
                     </div> 
                     :

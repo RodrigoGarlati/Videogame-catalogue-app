@@ -1,5 +1,6 @@
 import {GET_PRE_GAMES, GET_ALL_GAMES, GET_ALL_GENRES, GET_CREATED_GAMES, GET_GAME_DETAIL,
-      CREATE_GAME, CREATE_GENRE, SEARCH_GAMES, ORDER_GAMES, FILTER_GAMES, DELETE_GAME, EDIT_GAME, SWITCH_LOADER, loader} from '../actions'
+      CREATE_GAME, CREATE_GENRE, SEARCH_GAMES, ORDER_GAMES, FILTER_GAMES, DELETE_GAME, EDIT_GAME, SWITCH_LOADER, loader,
+      CLEAN_CREATED} from '../actions'
 
 const initialState = {
     Games: [],
@@ -162,6 +163,11 @@ export default function superReducer(state = initialState, action){
             return {
                 ...state,
                 loader: action.payload
+            }
+        case CLEAN_CREATED:
+            return {
+                ...state,
+                createdGame: {}
             }
         default:
             return state

@@ -22,6 +22,10 @@
     transition: 200ms;
 }
 
+.detail-button:disabled{
+    cursor: not-allowed;
+}
+
 .deletebutton{
     background-color: rgba(59, 36, 2, 0.61);
     color: rgb(255, 58, 4);

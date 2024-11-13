@@ -16,6 +16,7 @@ export const EDIT_GAME = 'EDIT_GAME';
 export const CREATE_GENRE = 'CREATE_GENRE';
 export const FILTER_GAMES = 'FILTER_GAMES';
 export const SWITCH_LOADER = 'SWITCH_LOADER';
+export const CLEAN_CREATED = 'CLEAN_CREATED'
 
 export function getAllGames(page){
     return async (dispatch) => {
@@ -131,5 +132,11 @@ export function createGenre(newGenre){
 export function loader(value){
     return(dispatch) => {
         dispatch({type: SWITCH_LOADER, payload: value})
+    }
+}
+
+export function cleanCreated(){
+    return (dispatch) => {
+        dispatch({type: CLEAN_CREATED})
     }
 }
