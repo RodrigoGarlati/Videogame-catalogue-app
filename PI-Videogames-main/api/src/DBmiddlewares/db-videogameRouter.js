@@ -1,14 +1,14 @@
 const {Router} = require('express');
 const router = Router();
 const { Videogame } = require('../db')
-const { getGamesFromDb, getCountGamesFromDb } = require( '../common/getGamesFromDb');
+const utils = require( '../common/getGamesFromDb');
 const { EDIT_GAME_EQUIVALENCES } = require('../common/constants')
 
 router.get('/', async (req, res)=>{
     const {name, page} = req.query
     try {
-        const dbGames = await getGamesFromDb(name, page, true)
-        const countDbGames = await getCountGamesFromDb(name)
+        const dbGames = await utils.getGamesFromDb(name, page, true)
+        const countDbGames = await utils.getCountGamesFromDb(name)
         res.json({
             games: dbGames.games,
             count: countDbGames
