@@ -5,7 +5,7 @@
     align-items: center;
     width: 20rem;
     height: 20rem;
-    background-image: url(https://media.istockphoto.com/id/1248994605/vector/glowing-neon-line-gamepad-icon-isolated-on-black-background-game-controller-vector.jpg?s=612x612&w=0&k=20&c=eSjCnn9h-XdJj6s5K12X2d93MolBIZWHBmfYmylKxZI=);
+    background-image: url('../../../utils/images/card-background.jpg');
     background-position-y: -13vh;
     background-position-x: center;
     background-size:contain;
