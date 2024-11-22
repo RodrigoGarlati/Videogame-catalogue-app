@@ -1,26 +1,13 @@
 const {Router} = require('express');
 const router = Router();
-const axios = require('axios');
 const {Genre} = require('../db');
-const { v4: uuidv4 } = require('uuid')
-
-
+const getGenresUtils = require('../common/getGenresFromApi')
 
 router.get('/initial', async (req, res)=>{
         try{
-            let genres = await axios.get('https://api.rawg.io/api/genres?key=460d82ec2eea4d12974d38b287551b0e')
-            genres = genres.data.results
-            let formattedGenres = genres.map((genre) => {
-                let obj = {}
-                obj.id = uuidv4()
-                obj.name = genre.name
-                obj.image = genre.image_background
-                obj.games = genre.games.slice(0,3).map(e => e.name).toString()  //saco los primeros tres, mapeo para sacar la propiedad name y lo paso a string porque es un array
-                obj.created = false 
-                return obj
-            })
+            const apiGenres = await getGenresUtils.getGenresFromApi()
             const createdGenres = await Genre.findAll()
-            const allGenres = [...createdGenres, ...formattedGenres] 
+            const allGenres = [...createdGenres, ...apiGenres] 
             res.json(allGenres)
         }
         catch(err){
